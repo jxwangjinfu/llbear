@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.payment.mapper.PaymentOrderRequestRecordMapper">
+
+  <resultMap id="paymentOrderRequestRecordMap" type="com.junfeng.platform.payment.api.entity.PaymentOrderRequestRecord">
+                  <id property="id" column="id"/>
+                        <result property="payOrderNo" column="pay_order_no"/>
+                        <result property="payMchId" column="pay_mch_id"/>
+                        <result property="appShopId" column="app_shop_id"/>
+                        <result property="mchOrderNo" column="mch_order_no"/>
+                        <result property="paymentModeCode" column="payment_mode_code"/>
+                        <result property="payChannelCode" column="pay_channel_code"/>
+                        <result property="tradeOrderNo" column="trade_order_no"/>
+                        <result property="amount" column="amount"/>
+                        <result property="feeType" column="fee_type"/>
+                        <result property="state" column="state"/>
+                        <result property="clientIp" column="client_ip"/>
+                        <result property="device" column="device"/>
+                        <result property="subject" column="subject"/>
+                        <result property="body" column="body"/>
+                        <result property="errCode" column="err_code"/>
+                        <result property="errMsg" column="err_msg"/>
+                        <result property="notifyUrl" column="notify_url"/>
+                        <result property="expireTime" column="expire_time"/>
+                        <result property="paySuccessTime" column="pay_success_time"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="refundState" column="refund_state"/>
+            </resultMap>
+
+  <!--paymentOrderRequestRecord简单分页查询-->
+  <select id="getPaymentOrderRequestRecordPage" resultMap="paymentOrderRequestRecordMap">
+    SELECT
+                  id,
+                        pay_order_no,
+                        pay_mch_id,
+	  					app_shop_id,
+                        mch_order_no,
+                        payment_mode_code,
+                        pay_channel_code,
+                        trade_order_no,
+                        amount,
+                        fee_type,
+                        state,
+                        client_ip,
+                        device,
+                        subject,
+                        body,
+                        err_code,
+                        err_msg,
+                        notify_url,
+                        expire_time,
+                        pay_success_time,
+                        create_time,
+                        update_time,
+                        refund_state
+              FROM payment_order_request_record
+    <where>
+              <if test="paymentOrderRequestRecord.id != null and paymentOrderRequestRecord.id.trim() != ''">
+          AND id = #{paymentOrderRequestRecord.id}
+        </if>
+              <if test="paymentOrderRequestRecord.payOrderNo != null and paymentOrderRequestRecord.payOrderNo.trim() != ''">
+          AND pay_order_no = #{paymentOrderRequestRecord.payOrderNo}
+        </if>
+              <if test="paymentOrderRequestRecord.payMchId != null and paymentOrderRequestRecord.payMchId.trim() != ''">
+          AND pay_mch_id = #{paymentOrderRequestRecord.payMchId}
+        </if>
+              <if test="paymentOrderRequestRecord.appShopId != null and paymentOrderRequestRecord.appShopId.trim() != ''">
+          AND app_shop_id = #{paymentOrderRequestRecord.appShopId}
+        </if>
+              <if test="paymentOrderRequestRecord.mchOrderNo != null and paymentOrderRequestRecord.mchOrderNo.trim() != ''">
+          AND mch_order_no = #{paymentOrderRequestRecord.mchOrderNo}
+        </if>
+              <if test="paymentOrderRequestRecord.paymentModeCode != null and paymentOrderRequestRecord.paymentModeCode.trim() != ''">
+          AND payment_mode_code = #{paymentOrderRequestRecord.paymentModeCode}
+        </if>
+              <if test="paymentOrderRequestRecord.payChannelCode != null and paymentOrderRequestRecord.payChannelCode.trim() != ''">
+          AND pay_channel_code = #{paymentOrderRequestRecord.payChannelCode}
+        </if>
+              <if test="paymentOrderRequestRecord.tradeOrderNo != null and paymentOrderRequestRecord.tradeOrderNo.trim() != ''">
+          AND trade_order_no = #{paymentOrderRequestRecord.tradeOrderNo}
+        </if>
+              <if test="paymentOrderRequestRecord.amount != null and paymentOrderRequestRecord.amount.trim() != ''">
+          AND amount = #{paymentOrderRequestRecord.amount}
+        </if>
+              <if test="paymentOrderRequestRecord.feeType != null and paymentOrderRequestRecord.feeType.trim() != ''">
+          AND fee_type = #{paymentOrderRequestRecord.feeType}
+        </if>
+              <if test="paymentOrderRequestRecord.state != null and paymentOrderRequestRecord.state.trim() != ''">
+          AND state = #{paymentOrderRequestRecord.state}
+        </if>
+              <if test="paymentOrderRequestRecord.clientIp != null and paymentOrderRequestRecord.clientIp.trim() != ''">
+          AND client_ip = #{paymentOrderRequestRecord.clientIp}
+        </if>
+              <if test="paymentOrderRequestRecord.device != null and paymentOrderRequestRecord.device.trim() != ''">
+          AND device = #{paymentOrderRequestRecord.device}
+        </if>
+              <if test="paymentOrderRequestRecord.subject != null and paymentOrderRequestRecord.subject.trim() != ''">
+          AND subject = #{paymentOrderRequestRecord.subject}
+        </if>
+              <if test="paymentOrderRequestRecord.body != null and paymentOrderRequestRecord.body.trim() != ''">
+          AND body = #{paymentOrderRequestRecord.body}
+        </if>
+              <if test="paymentOrderRequestRecord.errCode != null and paymentOrderRequestRecord.errCode.trim() != ''">
+          AND err_code = #{paymentOrderRequestRecord.errCode}
+        </if>
+              <if test="paymentOrderRequestRecord.errMsg != null and paymentOrderRequestRecord.errMsg.trim() != ''">
+          AND err_msg = #{paymentOrderRequestRecord.errMsg}
+        </if>
+              <if test="paymentOrderRequestRecord.notifyUrl != null and paymentOrderRequestRecord.notifyUrl.trim() != ''">
+          AND notify_url = #{paymentOrderRequestRecord.notifyUrl}
+        </if>
+              <if test="paymentOrderRequestRecord.expireTime != null and paymentOrderRequestRecord.expireTime.trim() != ''">
+          AND expire_time = #{paymentOrderRequestRecord.expireTime}
+        </if>
+              <if test="paymentOrderRequestRecord.paySuccessTime != null and paymentOrderRequestRecord.paySuccessTime.trim() != ''">
+          AND pay_success_time = #{paymentOrderRequestRecord.paySuccessTime}
+        </if>
+              <if test="paymentOrderRequestRecord.createTime != null and paymentOrderRequestRecord.createTime.trim() != ''">
+          AND create_time = #{paymentOrderRequestRecord.createTime}
+        </if>
+              <if test="paymentOrderRequestRecord.updateTime != null and paymentOrderRequestRecord.updateTime.trim() != ''">
+          AND update_time = #{paymentOrderRequestRecord.updateTime}
+        </if>
+              <if test="paymentOrderRequestRecord.refundState != null and paymentOrderRequestRecord.refundState.trim() != ''">
+          AND refund_state = #{paymentOrderRequestRecord.refundState}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

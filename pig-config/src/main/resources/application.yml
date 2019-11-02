@@ -1,0 +1,45 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: pig-config
+  # 配置中心
+  profiles:
+    active: native #git or native 表示读取本地文件 git表示读取对应仓库的文件
+  # 配置中心
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config/
+        git:
+          uri: http://192.168.199.12:50003/wangk/jf-config
+          username: wangk
+          password: 123456
+  rabbitmq:
+    host: 192.168.199.32
+    username: rabbitmq
+    password: rabbitmq
+
+# 注册中心配置
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://pig:pig@pig-eureka:8761/eureka/
+
+#暴露触发消息总线的地址
+# 基于 springcloud bus yml配置动态修改 说明：(对应的controller 需要加入 @RefreshScope 参考: com.pig4cloud.pig.admin.controller.TestController)
+# 1. 修改git 中的配置， http://192.168.199.12:50003/wangk/jf-config 如：pig-upms-dev.yml 中的 test.ip 配置
+# 2. 触发 config 服务的刷新 curl -X POST http://192.168.199.33:8888/actuator/bus-refresh
+# 3. 检查是否动态更新成功 curl http://192.168.199.33:9999/admin/test/ip
+management:
+  endpoint:
+    bus-refresh:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

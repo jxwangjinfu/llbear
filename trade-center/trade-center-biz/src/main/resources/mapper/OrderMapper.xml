@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.tc.mapper.OrderMapper">
+
+	<resultMap id="orderMap" type="com.junfeng.platform.tc.api.entity.Order">
+		<id property="id" column="id"/>
+		<result property="orderNo" column="order_no"/>
+		<result property="payOrderNo" column="pay_order_no"/>
+		<result property="orderUnique" column="order_unique"/>
+		<result property="groupOrderId" column="group_order_id"/>
+		<result property="areaProvince" column="area_province"/>
+		<result property="areaCity" column="area_city"/>
+		<result property="areaCounty" column="area_county"/>
+		<result property="sellerId" column="seller_id"/>
+		<result property="sellerName" column="seller_name"/>
+		<result property="sellerPhone" column="seller_phone"/>
+		<result property="state" column="state"/>
+		<result property="totalMoney" column="total_money"/>
+		<result property="totalDiscount" column="total_discount"/>
+		<result property="deliverMoney" column="deliver_money"/>
+		<result property="orderType" column="order_type"/>
+		<result property="payType" column="pay_type"/>
+		<result property="isSelf" column="is_self"/>
+		<result property="takeGoodsTime" column="take_goods_time"/>
+		<result property="isPay" column="is_pay"/>
+		<result property="sendType" column="send_type"/>
+		<result property="memberId" column="member_id"/>
+		<result property="memberName" column="member_name"/>
+		<result property="memberPhone" column="member_phone"/>
+		<result property="receiverName" column="receiver_name"/>
+		<result property="receiverPhone" column="receiver_phone"/>
+		<result property="receiverAddress" column="receiver_address"/>
+		<result property="postCode" column="post_code"/>
+		<result property="isInvoice" column="is_invoice"/>
+		<result property="invoiceClient" column="invoice_client"/>
+		<result property="remarks" column="remarks"/>
+		<result property="createTime" column="create_time"/>
+		<result property="isRefund" column="is_refund"/>
+		<result property="orderSrc" column="order_src"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="addressName" column="address_name"/>
+		<result property="totalNum" column="total_num"/>
+	</resultMap>
+
+
+</mapper>

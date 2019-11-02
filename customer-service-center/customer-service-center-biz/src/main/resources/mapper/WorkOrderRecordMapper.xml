@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.csc.mapper.WorkOrderRecordMapper">
+
+  <resultMap id="workOrderRecordMap" type="com.junfeng.platform.csc.entity.WorkOrderRecord">
+                  <id property="id" column="id"/>
+                        <result property="workOrderCode" column="work_order_code"/>
+                        <result property="groupCode" column="group_code"/>
+                        <result property="groupName" column="group_name"/>
+                        <result property="userCode" column="user_code"/>
+                        <result property="userName" column="user_name"/>
+                        <result property="reasonTypeCode" column="reason_type_code"/>
+                        <result property="orderDetail" column="order_detail"/>
+                        <result property="state" column="state"/>
+                        <result property="orderSort" column="order_sort"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--workOrderRecord简单分页查询-->
+  <select id="getWorkOrderRecordPage" resultMap="workOrderRecordMap">
+    SELECT
+                  id,
+                        work_order_code,
+                        group_code,
+                        group_name,
+                        user_code,
+                        user_name,
+                        reason_type_code,
+                        order_detail,
+                        state,
+                        order_sort,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM csc_work_order_record
+    <where>
+              <if test="workOrderRecord.id != null and workOrderRecord.id.trim() != ''">
+          AND id = #{workOrderRecord.id}
+        </if>
+              <if test="workOrderRecord.workOrderCode != null">
+          AND work_order_code = #{workOrderRecord.workOrderCode}
+        </if>
+              <if test="workOrderRecord.groupCode != null and workOrderRecord.groupCode.trim() != ''">
+          AND group_code = #{workOrderRecord.groupCode}
+        </if>
+              <if test="workOrderRecord.groupName != null and workOrderRecord.groupName.trim() != ''">
+          AND group_name = #{workOrderRecord.groupName}
+        </if>
+              <if test="workOrderRecord.userCode != null and workOrderRecord.userCode.trim() != ''">
+          AND user_code = #{workOrderRecord.userCode}
+        </if>
+              <if test="workOrderRecord.userName != null and workOrderRecord.userName.trim() != ''">
+          AND user_name = #{workOrderRecord.userName}
+        </if>
+              <if test="workOrderRecord.reasonTypeCode != null and workOrderRecord.reasonTypeCode.trim() != ''">
+          AND reason_type_code = #{workOrderRecord.reasonTypeCode}
+        </if>
+              <if test="workOrderRecord.orderDetail != null and workOrderRecord.orderDetail.trim() != ''">
+          AND order_detail = #{workOrderRecord.orderDetail}
+        </if>
+              <if test="workOrderRecord.state != null and workOrderRecord.state.trim() != ''">
+          AND state = #{workOrderRecord.state}
+        </if>
+              <if test="workOrderRecord.orderSort != null and workOrderRecord.orderSort.trim() != ''">
+          AND order_sort = #{workOrderRecord.orderSort}
+        </if>
+              <if test="workOrderRecord.delFlag != null and workOrderRecord.delFlag.trim() != ''">
+          AND del_flag = #{workOrderRecord.delFlag}
+        </if>
+              <if test="workOrderRecord.createTime != null and workOrderRecord.createTime.trim() != ''">
+          AND create_time = #{workOrderRecord.createTime}
+        </if>
+              <if test="workOrderRecord.createBy != null and workOrderRecord.createBy.trim() != ''">
+          AND create_by = #{workOrderRecord.createBy}
+        </if>
+              <if test="workOrderRecord.updateTime != null and workOrderRecord.updateTime.trim() != ''">
+          AND update_time = #{workOrderRecord.updateTime}
+        </if>
+              <if test="workOrderRecord.updateBy != null and workOrderRecord.updateBy.trim() != ''">
+          AND update_by = #{workOrderRecord.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

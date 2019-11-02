@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.GiftMapper">
+
+	<resultMap id="giftMap" type="com.junfeng.platform.oc.entity.Gift">
+		<id property="id" column="id"/>
+		<result property="clientId" column="client_id"/>
+		<result property="giftName" column="gift_name"/>
+		<result property="state" column="state"/>
+		<result property="publishNumber" column="publish_number"/>
+		<result property="useType" column="use_type"/>
+		<result property="pcSkuId" column="pc_sku_id"/>
+		<result property="receiveDate" column="receive_date"/>
+		<result property="useStartTime" column="use_start_time"/>
+		<result property="useEndTime" column="use_end_time"/>
+		<result property="recipientsLimit" column="recipients_limit"/>
+		<result property="recipientsNumberLimit" column="recipients_number_limit"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--gift简单分页查询-->
+	<select id="getGiftPage" resultMap="giftMap">
+		SELECT
+		id,
+		client_id,
+		gift_name,
+		state,
+		publish_number,
+		use_type,
+		pc_sku_id,
+		receive_date,
+		use_start_time,
+		use_end_time,
+		recipients_limit,
+		recipients_number_limit,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_gift
+		<where>
+			<if test="gift.id != null">
+				AND id = #{gift.id}
+			</if>
+			<if test="gift.clientId != null and gift.clientId.trim() != ''">
+				AND client_id = #{gift.clientId}
+			</if>
+			<if test="gift.giftName != null and gift.giftName.trim() != ''">
+				AND gift_name = #{gift.giftName}
+			</if>
+			<if test="gift.state != null">
+				AND state = #{gift.state}
+			</if>
+			<if test="gift.publishNumber != null">
+				AND publish_number = #{gift.publishNumber}
+			</if>
+			<if test="gift.useType != null">
+				AND use_type = #{gift.useType}
+			</if>
+			<if test="gift.pcSkuId != null">
+				AND pc_sku_id = #{gift.pcSkuId}
+			</if>
+			<if test="gift.receiveDate != null and gift.receiveDate.trim() != ''">
+				AND receive_date = #{gift.receiveDate}
+			</if>
+			<if test="gift.useStartTime != null and gift.useStartTime.trim() != ''">
+				AND use_start_time = #{gift.useStartTime}
+			</if>
+			<if test="gift.useEndTime != null and gift.useEndTime.trim() != ''">
+				AND use_end_time = #{gift.useEndTime}
+			</if>
+			<if test="gift.recipientsLimit != null">
+				AND recipients_limit = #{gift.recipientsLimit}
+			</if>
+			<if test="gift.recipientsNumberLimit != null">
+				AND recipients_number_limit = #{gift.recipientsNumberLimit}
+			</if>
+			<if test="gift.delFlag != null and gift.delFlag.trim() != ''">
+				AND del_flag = #{gift.delFlag}
+			</if>
+			<if test="gift.createTime != null and gift.createTime.trim() != ''">
+				AND create_time = #{gift.createTime}
+			</if>
+			<if test="gift.createBy != null and gift.createBy.trim() != ''">
+				AND create_by = #{gift.createBy}
+			</if>
+			<if test="gift.updateTime != null and gift.updateTime.trim() != ''">
+				AND update_time = #{gift.updateTime}
+			</if>
+			<if test="gift.updateBy != null and gift.updateBy.trim() != ''">
+				AND update_by = #{gift.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

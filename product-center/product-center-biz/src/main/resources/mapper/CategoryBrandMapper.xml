@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.CategoryBrandMapper">
+
+  <resultMap id="categoryBrandMap" type="com.junfeng.platform.pc.api.entity.CategoryBrand">
+                  <id property="categoryId" column="category_id"/>
+                        <result property="brandId" column="brand_id"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--categoryBrand简单分页查询-->
+  <select id="getCategoryBrandPage" resultMap="categoryBrandMap">
+    SELECT
+                  category_id,
+                        brand_id,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM pc_category_brand
+    <where>
+              <if test="categoryBrand.categoryId != null and categoryBrand.categoryId.trim() != ''">
+          AND category_id = #{categoryBrand.categoryId}
+        </if>
+              <if test="categoryBrand.brandId != null and categoryBrand.brandId.trim() != ''">
+          AND brand_id = #{categoryBrand.brandId}
+        </if>
+              <if test="categoryBrand.delFlag != null and categoryBrand.delFlag.trim() != ''">
+          AND del_flag = #{categoryBrand.delFlag}
+        </if>
+              <if test="categoryBrand.createTime != null and categoryBrand.createTime.trim() != ''">
+          AND create_time = #{categoryBrand.createTime}
+        </if>
+              <if test="categoryBrand.createBy != null and categoryBrand.createBy.trim() != ''">
+          AND create_by = #{categoryBrand.createBy}
+        </if>
+              <if test="categoryBrand.updateTime != null and categoryBrand.updateTime.trim() != ''">
+          AND update_time = #{categoryBrand.updateTime}
+        </if>
+              <if test="categoryBrand.updateBy != null and categoryBrand.updateBy.trim() != ''">
+          AND update_by = #{categoryBrand.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

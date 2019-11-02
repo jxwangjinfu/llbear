@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.CouponQuartMapper">
+
+	<resultMap id="couponQuartMap" type="com.junfeng.platform.oc.entity.CouponQuart">
+		<id property="id" column="id"/>
+		<result property="ocCouponId" column="oc_coupon_id"/>
+		<result property="jobName" column="job_name"/>
+		<result property="jobGroup" column="job_group"/>
+		<result property="context" column="context"/>
+		<result property="state" column="state"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--couponQuart简单分页查询-->
+	<select id="getCouponQuartPage" resultMap="couponQuartMap">
+		SELECT
+		id,
+		oc_coupon_id,
+		job_name,
+		job_group,
+		context,
+		state,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_coupon_quart
+		<where>
+			<if test="couponQuart.id != null and couponQuart.id.trim() != ''">
+				AND id = #{couponQuart.id}
+			</if>
+			<if test="couponQuart.ocCouponId != null and couponQuart.ocCouponId.trim() != ''">
+				AND oc_coupon_id = #{couponQuart.ocCouponId}
+			</if>
+			<if test="couponQuart.jobName != null and couponQuart.jobName.trim() != ''">
+				AND job_name = #{couponQuart.jobName}
+			</if>
+			<if test="couponQuart.jobGroup != null and couponQuart.jobGroup.trim() != ''">
+				AND job_group = #{couponQuart.jobGroup}
+			</if>
+			<if test="couponQuart.context != null and couponQuart.context.trim() != ''">
+				AND context = #{couponQuart.context}
+			</if>
+			<if test="couponQuart.state != null and couponQuart.state.trim() != ''">
+				AND state = #{couponQuart.state}
+			</if>
+			<if test="couponQuart.delFlag != null and couponQuart.delFlag.trim() != ''">
+				AND del_flag = #{couponQuart.delFlag}
+			</if>
+			<if test="couponQuart.createTime != null and couponQuart.createTime.trim() != ''">
+				AND create_time = #{couponQuart.createTime}
+			</if>
+			<if test="couponQuart.createBy != null and couponQuart.createBy.trim() != ''">
+				AND create_by = #{couponQuart.createBy}
+			</if>
+			<if test="couponQuart.updateTime != null and couponQuart.updateTime.trim() != ''">
+				AND update_time = #{couponQuart.updateTime}
+			</if>
+			<if test="couponQuart.updateBy != null and couponQuart.updateBy.trim() != ''">
+				AND update_by = #{couponQuart.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

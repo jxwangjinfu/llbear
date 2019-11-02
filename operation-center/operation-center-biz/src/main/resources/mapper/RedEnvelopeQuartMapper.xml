@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.RedEnvelopeQuartMapper">
+
+	<resultMap id="redEnvelopeQuartMap" type="com.junfeng.platform.oc.entity.RedEnvelopeQuart">
+		<id property="id" column="id"/>
+		<result property="redEnvelopeId" column="red_envelope_id"/>
+		<result property="redEnvelopeState" column="red_envelope_state"/>
+		<result property="jobTime" column="job_time"/>
+		<result property="jobName" column="job_name"/>
+		<result property="jobGroup" column="job_group"/>
+		<result property="context" column="context"/>
+		<result property="state" column="state"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--redEnvelopeQuart简单分页查询-->
+	<select id="getRedEnvelopeQuartPage" resultMap="redEnvelopeQuartMap">
+		SELECT
+		id,
+		red_envelope_id,
+		red_envelope_state,
+		job_time,
+		job_name,
+		job_group,
+		context,
+		state,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_red_envelope_quart
+		<where>
+			<if test="redEnvelopeQuart.id != null">
+				AND id = #{redEnvelopeQuart.id}
+			</if>
+			<if test="redEnvelopeQuart.redEnvelopeId != null">
+				AND red_envelope_id = #{redEnvelopeQuart.redEnvelopeId}
+			</if>
+			<if test="redEnvelopeQuart.redEnvelopeState != null">
+				AND red_envelope_state = #{redEnvelopeQuart.redEnvelopeState}
+			</if>
+			<if test="redEnvelopeQuart.jobTime != null and redEnvelopeQuart.jobTime.trim() != ''">
+				AND job_time = #{redEnvelopeQuart.jobTime}
+			</if>
+			<if test="redEnvelopeQuart.jobName != null and redEnvelopeQuart.jobName.trim() != ''">
+				AND job_name = #{redEnvelopeQuart.jobName}
+			</if>
+			<if test="redEnvelopeQuart.jobGroup != null and redEnvelopeQuart.jobGroup.trim() != ''">
+				AND job_group = #{redEnvelopeQuart.jobGroup}
+			</if>
+			<if test="redEnvelopeQuart.context != null and redEnvelopeQuart.context.trim() != ''">
+				AND context = #{redEnvelopeQuart.context}
+			</if>
+			<if test="redEnvelopeQuart.state != null">
+				AND state = #{redEnvelopeQuart.state}
+			</if>
+			<if test="redEnvelopeQuart.delFlag != null and redEnvelopeQuart.delFlag.trim() != ''">
+				AND del_flag = #{redEnvelopeQuart.delFlag}
+			</if>
+			<if test="redEnvelopeQuart.createTime != null and redEnvelopeQuart.createTime.trim() != ''">
+				AND create_time = #{redEnvelopeQuart.createTime}
+			</if>
+			<if test="redEnvelopeQuart.createBy != null and redEnvelopeQuart.createBy.trim() != ''">
+				AND create_by = #{redEnvelopeQuart.createBy}
+			</if>
+			<if test="redEnvelopeQuart.updateTime != null and redEnvelopeQuart.updateTime.trim() != ''">
+				AND update_time = #{redEnvelopeQuart.updateTime}
+			</if>
+			<if test="redEnvelopeQuart.updateBy != null and redEnvelopeQuart.updateBy.trim() != ''">
+				AND update_by = #{redEnvelopeQuart.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

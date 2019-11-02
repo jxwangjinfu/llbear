@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.RedEnvelopeConfigMapper">
+
+	<resultMap id="redEnvelopeConfigMap" type="com.junfeng.platform.oc.entity.RedEnvelopeConfig">
+		<id property="id" column="id"/>
+		<result property="state" column="state"/>
+		<result property="redEnvelopeRule" column="red_envelope_rule"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--redEnvelopeConfig简单分页查询-->
+	<select id="getRedEnvelopeConfigPage" resultMap="redEnvelopeConfigMap">
+		SELECT
+		id,
+		state,
+		red_envelope_rule,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_red_envelope_config
+		<where>
+			<if test="redEnvelopeConfig.id != null">
+				AND id = #{redEnvelopeConfig.id}
+			</if>
+			<if test="redEnvelopeConfig.state != null">
+				AND state = #{redEnvelopeConfig.state}
+			</if>
+			<if test="redEnvelopeConfig.redEnvelopeRule != null and redEnvelopeConfig.redEnvelopeRule.trim() != ''">
+				AND red_envelope_rule = #{redEnvelopeConfig.redEnvelopeRule}
+			</if>
+			<if test="redEnvelopeConfig.delFlag != null and redEnvelopeConfig.delFlag.trim() != ''">
+				AND del_flag = #{redEnvelopeConfig.delFlag}
+			</if>
+			<if test="redEnvelopeConfig.createTime != null and redEnvelopeConfig.createTime.trim() != ''">
+				AND create_time = #{redEnvelopeConfig.createTime}
+			</if>
+			<if test="redEnvelopeConfig.createBy != null and redEnvelopeConfig.createBy.trim() != ''">
+				AND create_by = #{redEnvelopeConfig.createBy}
+			</if>
+			<if test="redEnvelopeConfig.updateTime != null and redEnvelopeConfig.updateTime.trim() != ''">
+				AND update_time = #{redEnvelopeConfig.updateTime}
+			</if>
+			<if test="redEnvelopeConfig.updateBy != null and redEnvelopeConfig.updateBy.trim() != ''">
+				AND update_by = #{redEnvelopeConfig.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

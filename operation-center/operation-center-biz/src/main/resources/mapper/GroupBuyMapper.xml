@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.GroupBuyMapper">
+
+	<resultMap id="groupBuyMap" type="com.junfeng.platform.oc.entity.GroupBuy">
+		<id property="id" column="id"/>
+		<result property="clientId" column="client_id"/>
+		<result property="groupName" column="group_name"/>
+		<result property="state" column="state"/>
+		<result property="personNumber" column="person_number"/>
+		<result property="groupType" column="group_type"/>
+		<result property="pcSkuId" column="pc_sku_id"/>
+		<result property="effectiveTime" column="effective_time"/>
+		<result property="useStartTime" column="use_start_time"/>
+		<result property="useEndTime" column="use_end_time"/>
+		<result property="price" column="price"/>
+		<result property="groupPrice" column="group_price"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--groupBuy简单分页查询-->
+	<select id="getGroupBuyPage" resultMap="groupBuyMap">
+		SELECT
+		id,
+		client_id,
+		group_name,
+		state,
+		person_number,
+		group_type,
+		pc_sku_id,
+		effective_time,
+		use_start_time,
+		use_end_time,
+		price,
+		group_price,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_group_buy
+		<where>
+			<if test="groupBuy.id != null">
+				AND id = #{groupBuy.id}
+			</if>
+			<if test="groupBuy.clientId != null and groupBuy.clientId.trim() != ''">
+				AND client_id = #{groupBuy.clientId}
+			</if>
+			<if test="groupBuy.groupName != null and groupBuy.groupName.trim() != ''">
+				AND group_name = #{groupBuy.groupName}
+			</if>
+			<if test="groupBuy.state != null">
+				AND state = #{groupBuy.state}
+			</if>
+			<if test="groupBuy.personNumber != null">
+				AND person_number = #{groupBuy.personNumber}
+			</if>
+			<if test="groupBuy.groupType != null">
+				AND group_type = #{groupBuy.groupType}
+			</if>
+			<if test="groupBuy.pcSkuId != null">
+				AND pc_sku_id = #{groupBuy.pcSkuId}
+			</if>
+			<if test="groupBuy.effectiveTime != null and groupBuy.effectiveTime.trim() != ''">
+				AND effective_time = #{groupBuy.effectiveTime}
+			</if>
+			<if test="groupBuy.useStartTime != null and groupBuy.useStartTime.trim() != ''">
+				AND use_start_time = #{groupBuy.useStartTime}
+			</if>
+			<if test="groupBuy.useEndTime != null and groupBuy.useEndTime.trim() != ''">
+				AND use_end_time = #{groupBuy.useEndTime}
+			</if>
+			<if test="groupBuy.price != null">
+				AND price = #{groupBuy.price}
+			</if>
+			<if test="groupBuy.groupPrice != null">
+				AND group_price = #{groupBuy.groupPrice}
+			</if>
+			<if test="groupBuy.delFlag != null and groupBuy.delFlag.trim() != ''">
+				AND del_flag = #{groupBuy.delFlag}
+			</if>
+			<if test="groupBuy.createTime != null and groupBuy.createTime.trim() != ''">
+				AND create_time = #{groupBuy.createTime}
+			</if>
+			<if test="groupBuy.createBy != null and groupBuy.createBy.trim() != ''">
+				AND create_by = #{groupBuy.createBy}
+			</if>
+			<if test="groupBuy.updateTime != null and groupBuy.updateTime.trim() != ''">
+				AND update_time = #{groupBuy.updateTime}
+			</if>
+			<if test="groupBuy.updateBy != null and groupBuy.updateBy.trim() != ''">
+				AND update_by = #{groupBuy.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.PointsMemberFlowMapper">
+
+	<resultMap id="pointsMemberFlowMap" type="com.junfeng.platform.oc.entity.PointsMemberFlow">
+		<id property="id" column="id"/>
+		<result property="clientId" column="client_id"/>
+		<result property="mcMemberId" column="mc_member_id"/>
+		<result property="ocPointsConfigId" column="oc_points_config_id"/>
+		<result property="points" column="points"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--pointsMemberFlow简单分页查询-->
+	<select id="getPointsMemberFlowPage" resultMap="pointsMemberFlowMap">
+		SELECT
+		id,
+		client_id,
+		mc_member_id,
+		oc_points_config_id,
+		points,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_points_member_flow
+		<where>
+			<if test="pointsMemberFlow.id != null">
+				AND id = #{pointsMemberFlow.id}
+			</if>
+			<if test="pointsMemberFlow.clientId != null and pointsMemberFlow.clientId.trim() != ''">
+				AND client_id = #{pointsMemberFlow.clientId}
+			</if>
+			<if test="pointsMemberFlow.mcMemberId != null">
+				AND mc_member_id = #{pointsMemberFlow.mcMemberId}
+			</if>
+			<if test="pointsMemberFlow.ocPointsConfigId != null">
+				AND oc_points_config_id = #{pointsMemberFlow.ocPointsConfigId}
+			</if>
+			<if test="pointsMemberFlow.points != null">
+				AND points = #{pointsMemberFlow.points}
+			</if>
+			<if test="pointsMemberFlow.delFlag != null and pointsMemberFlow.delFlag.trim() != ''">
+				AND del_flag = #{pointsMemberFlow.delFlag}
+			</if>
+			<if test="pointsMemberFlow.createTime != null and pointsMemberFlow.createTime.trim() != ''">
+				AND create_time = #{pointsMemberFlow.createTime}
+			</if>
+			<if test="pointsMemberFlow.createBy != null and pointsMemberFlow.createBy.trim() != ''">
+				AND create_by = #{pointsMemberFlow.createBy}
+			</if>
+			<if test="pointsMemberFlow.updateTime != null and pointsMemberFlow.updateTime.trim() != ''">
+				AND update_time = #{pointsMemberFlow.updateTime}
+			</if>
+			<if test="pointsMemberFlow.updateBy != null and pointsMemberFlow.updateBy.trim() != ''">
+				AND update_by = #{pointsMemberFlow.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+	<select id="getPointsMemberFlowList" resultMap="pointsMemberFlowMap">
+		SELECT
+		id,
+		client_id,
+		mc_member_id,
+		oc_points_config_id,
+		points,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_points_member_flow
+		<where>
+
+			<if test="clientId != null and clientId.trim() != ''">
+				AND client_id = #{clientId}
+			</if>
+			<if test="mcMemberId != null">
+				AND mc_member_id = #{mcMemberId}
+			</if>
+			<if test="startTime != null and startTime.trim() != ''">
+				<![CDATA[ AND create_time > #{startTime} ]]>
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				<![CDATA[ AND  create_time <= #{endTime} ]]>
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+</mapper>

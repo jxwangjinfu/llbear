@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.BuyGiftLevelGoodsMapper">
+
+	<resultMap id="buyGiftLevelGoodsMap" type="com.junfeng.platform.oc.entity.BuyGiftLevelGoods">
+		<id property="id" column="id"/>
+		<result property="ocBuyGiftLevelId" column="oc_buy_gift_level_id"/>
+		<result property="type" column="type"/>
+		<result property="typeId" column="type_id"/>
+		<result property="giftNumber" column="gift_number"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--buyGiftLevelGoods简单分页查询-->
+	<select id="getBuyGiftLevelGoodsPage" resultMap="buyGiftLevelGoodsMap">
+		SELECT
+		id,
+		oc_buy_gift_level_id,
+		type,
+		type_id,
+		gift_number,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_buy_gift_level_goods
+		<where>
+			<if test="buyGiftLevelGoods.id != null">
+				AND id = #{buyGiftLevelGoods.id}
+			</if>
+			<if test="buyGiftLevelGoods.ocBuyGiftLevelId != null">
+				AND oc_buy_gift_level_id = #{buyGiftLevelGoods.ocBuyGiftLevelId}
+			</if>
+			<if test="buyGiftLevelGoods.type != null">
+				AND type = #{buyGiftLevelGoods.type}
+			</if>
+			<if test="buyGiftLevelGoods.typeId != null">
+				AND type_id = #{buyGiftLevelGoods.typeId}
+			</if>
+			<if test="buyGiftLevelGoods.giftNumber != null">
+				AND gift_number = #{buyGiftLevelGoods.giftNumber}
+			</if>
+			<if test="buyGiftLevelGoods.delFlag != null and buyGiftLevelGoods.delFlag.trim() != ''">
+				AND del_flag = #{buyGiftLevelGoods.delFlag}
+			</if>
+			<if test="buyGiftLevelGoods.createTime != null and buyGiftLevelGoods.createTime.trim() != ''">
+				AND create_time = #{buyGiftLevelGoods.createTime}
+			</if>
+			<if test="buyGiftLevelGoods.createBy != null and buyGiftLevelGoods.createBy.trim() != ''">
+				AND create_by = #{buyGiftLevelGoods.createBy}
+			</if>
+			<if test="buyGiftLevelGoods.updateTime != null and buyGiftLevelGoods.updateTime.trim() != ''">
+				AND update_time = #{buyGiftLevelGoods.updateTime}
+			</if>
+			<if test="buyGiftLevelGoods.updateBy != null and buyGiftLevelGoods.updateBy.trim() != ''">
+				AND update_by = #{buyGiftLevelGoods.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

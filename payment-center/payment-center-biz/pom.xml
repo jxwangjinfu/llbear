@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>payment-center</artifactId>
+		<groupId>com.junfeng</groupId>
+		<version>1.0.0</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>payment-center-biz</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1</version>
+
+	<description>支付中心业务模块</description>
+
+	<dependencies>
+
+		<!-- swagger2 -->
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>junfeng-common-swagger2</artifactId>
+			<version>0.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- 对象映射 dozer -->
+		<dependency>
+			<groupId>net.sf.dozer</groupId>
+			<artifactId>dozer</artifactId>
+			<version>5.5.1</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>jcl-over-slf4j</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.4</version>
+			<classifier>jdk15</classifier>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dom4j</groupId>
+			<artifactId>dom4j</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.49</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.redisson</groupId>
+			<artifactId>redisson-spring-boot-starter</artifactId>
+			<version>3.11.3</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+
+		<!--消息总线-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-bus</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+		</dependency>
+
+
+		<!--api 模块-->
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>trade-center-api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>payment-center-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>trade-center-api</artifactId>
+			<version>0.0.1</version>
+		</dependency>
+
+		<!--安全模块-->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>pig-common-security</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!--日志处理-->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>pig-common-log</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!--配置中心客户端-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!--mybatis-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatis-plus.version}</version>
+		</dependency>
+		<!--数据库-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!--web 模块-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!--排除tomcat依赖-->
+				<exclusion>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!--undertow容器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-configuration-processor</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- 建设银行的加密类 -->
+		<dependency>
+			<groupId>bcprov-jdk14-128</groupId>
+			<artifactId>bcprov-jdk14-128</artifactId>
+			<version>1.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/bcprov-jdk14-128.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>COM.CCB.EnDecryptAlgorithm_v1.0_20120220</groupId>
+			<artifactId>COM.CCB.EnDecryptAlgorithm_v1.0_20120220</artifactId>
+			<version>1.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/COM.CCB.EnDecryptAlgorithm_v1.0_20120220.jar</systemPath>
+		</dependency>
+	</dependencies>
+
+
+	<!-- do not modify this docker build config, unless you know it! -->
+	<!-- === docker build copy BEGIN === -->
+	<properties>
+		<JunFengDockerImageName>payment-center</JunFengDockerImageName>
+		<JunFengDockerImageVersion>0.0.15</JunFengDockerImageVersion>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<includeSystemScope>true</includeSystemScope>
+					<mainClass>com.junfeng.platform.payment.PaymentCenterApplication</mainClass>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- docker的maven插件，官网 https://github.com/spotify/docker-maven-plugin -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>
+						192.168.199.12:50000/${JunFengDockerImageName}:${JunFengDockerImageVersion}
+					</imageName>
+					<baseImage>jre1.8:0.0.1</baseImage>
+					<workdir>/${project.build.finalName}</workdir>
+					<entryPoint>
+						["java", "-Djava.security.egd=file:/dev/./urandom", "-jar","/${project.build.finalName}/${project.build.finalName}.jar"]
+					</entryPoint>
+					<resources>
+						<resource>
+							<targetPath>/${project.build.finalName}</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+					<dockerHost>http://192.168.199.12:2375</dockerHost>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<!-- === docker build copy END === -->
+
+</project>

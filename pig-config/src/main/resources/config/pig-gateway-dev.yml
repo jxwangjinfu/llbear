@@ -1,0 +1,132 @@
+spring:
+  cloud:
+    gateway:
+      locator:
+        enabled: true
+      routes:
+        # 认证中心
+        - id: auth
+          uri: lb://pig-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            # 验证码处理
+            - ValidateCodeGatewayFilter
+            # 前端密码解密
+            - PasswordDecoderFilter
+        #UPMS 模块
+        - id: admin
+          uri: lb://pig-upms
+          predicates:
+            - Path=/admin/**
+          filters:
+            # 限流配置
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddrKeyResolver}'
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+              # 降级配置
+            - name: Hystrix
+              args:
+                name: default
+                fallbackUri: 'forward:/fallback'
+        #设备中心 模块
+        - id: dc
+          uri: lb://device-center
+          predicates:
+            - Path=/dc/**
+        #会员中心 模块
+        - id: mc
+          uri: lb://member-center
+          predicates:
+            - Path=/mc/**
+        # 代码生成模块
+        - id: gen
+          uri: lb://pig-codegen
+          predicates:
+            - Path=/gen/**
+        #交易中心 模块
+        - id: tc
+          uri: lb://trade-center
+          predicates:
+            - Path=/tc/**
+        # 商品中心 模块
+        - id: pc
+          uri: lb://product-center
+          predicates:
+            - Path=/pc/**
+                # 店铺中心 模块
+        - id: sc
+          uri: lb://shop-center
+          predicates:
+            - Path=/sc/**
+        #任务中心
+        - id: qc
+          uri: lb://quartz-center
+          predicates:
+            - Path=/qc/**
+          filters:
+            # 限流配置
+            - name: RequestRateLimiter
+              args:
+                key-resolver: '#{@remoteAddrKeyResolver}'
+                redis-rate-limiter.replenishRate: 10
+                redis-rate-limiter.burstCapacity: 20
+              # 降级配置
+            - name: Hystrix
+              args:
+                name: default
+                fallbackUri: 'forward:/fallback'
+        #支付中心
+        - id: payment
+          uri: lb://payment-center
+          predicates:
+            - Path=/payment/**
+        #运营中心
+        - id: oc
+          uri: lb://operation-center
+          predicates:
+            - Path=/oc/**
+        #微信中心
+        - id: wc
+          uri: lb://weixin-center
+          predicates:
+            - Path=/wc/**
+        #后台管理
+        - id: mg
+          uri: lb://uniapp-manager
+          predicates:
+            - Path=/mg/**
+        #设备管理后台
+        - id: dg
+          uri: lb://device-manager
+          predicates:
+            - Path=/dg/**
+        #客服中心-在线客服
+        - id: csc
+          uri: lb://customer-service-center
+          predicates:
+            - Path=/csc/online/info/**
+        - id: csc
+          uri: lb:ws://customer-service-center
+          predicates:
+            - Path=/csc/online/**
+        - id: csc
+          uri: lb://customer-service-center
+          predicates:
+            - Path=/csc/**
+security:
+  encode:
+    # 前端密码密钥，必须16位
+    key: 'thanks,pig4cloud'
+
+# 不校验验证码终端
+ignore:
+  clients:
+    - test
+    - uniapp-manager
+  #这里是配置 http://pig-gateway:9999/swagger-ui.html 里面过滤的应用
+  swaggerProviders:
+    - auth
+    - admin

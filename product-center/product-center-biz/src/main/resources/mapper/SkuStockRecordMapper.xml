@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.SkuStockRecordMapper">
+
+  <resultMap id="skuStockRecordMap" type="com.junfeng.platform.pc.api.entity.SkuStockRecord">
+                  <id property="id" column="id"/>
+                        <result property="skuCode" column="sku_code"/>
+                        <result property="stockType" column="stock_type"/>
+                        <result property="count" column="count"/>
+                        <result property="countBefore" column="count_before"/>
+                        <result property="countAfter" column="count_after"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+            </resultMap>
+
+  <!--skuStockRecord简单分页查询-->
+  <select id="getSkuStockRecordPage" resultMap="skuStockRecordMap">
+    SELECT
+                  id,
+                        sku_code,
+                        stock_type,
+                        count,
+                        count_before,
+                        count_after,
+                        create_time,
+                        create_by
+              FROM pc_sku_stock_record
+    <where>
+              <if test="skuStockRecord.id != null and skuStockRecord.id.trim() != ''">
+          AND id = #{skuStockRecord.id}
+        </if>
+              <if test="skuStockRecord.skuCode != null and skuStockRecord.skuCode.trim() != ''">
+          AND sku_code = #{skuStockRecord.skuCode}
+        </if>
+              <if test="skuStockRecord.stockType != null and skuStockRecord.stockType.trim() != ''">
+          AND stock_type = #{skuStockRecord.stockType}
+        </if>
+              <if test="skuStockRecord.count != null and skuStockRecord.count.trim() != ''">
+          AND count = #{skuStockRecord.count}
+        </if>
+              <if test="skuStockRecord.countBefore != null and skuStockRecord.countBefore.trim() != ''">
+          AND count_before = #{skuStockRecord.countBefore}
+        </if>
+              <if test="skuStockRecord.countAfter != null and skuStockRecord.countAfter.trim() != ''">
+          AND count_after = #{skuStockRecord.countAfter}
+        </if>
+              <if test="skuStockRecord.createTime != null and skuStockRecord.createTime.trim() != ''">
+          AND create_time = #{skuStockRecord.createTime}
+        </if>
+              <if test="skuStockRecord.createBy != null and skuStockRecord.createBy.trim() != ''">
+          AND create_by = #{skuStockRecord.createBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.payment.mapper.PaymentMchChannelRelationMapper">
+
+  <resultMap id="paymentMchChannelRelationMap" type="com.junfeng.platform.payment.api.entity.PaymentMchChannelRelation">
+                  <id property="id" column="id"/>
+                        <result property="payMchId" column="pay_mch_id"/>
+                        <result property="payChannelCode" column="pay_channel_code"/>
+                        <result property="payChannelAccount" column="pay_channel_account"/>
+                        <result property="payChannelKey" column="pay_channel_key"/>
+                        <result property="extendJson" column="extend_json"/>
+                        <result property="state" column="state"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+            </resultMap>
+
+  <!--paymentMchChannelRelation简单分页查询-->
+  <select id="getPaymentMchChannelRelationPage" resultMap="paymentMchChannelRelationMap">
+    SELECT
+                  id,
+                        pay_mch_id,
+                        pay_channel_code,
+                        pay_channel_account,
+                        pay_channel_key,
+                        extend_json,
+                        state,
+                        create_time,
+                        update_time
+              FROM payment_mch_channel_relation
+    <where>
+              <if test="paymentMchChannelRelation.id != null and paymentMchChannelRelation.id.trim() != ''">
+          AND id = #{paymentMchChannelRelation.id}
+        </if>
+              <if test="paymentMchChannelRelation.payMchId != null and paymentMchChannelRelation.payMchId.trim() != ''">
+          AND pay_mch_id = #{paymentMchChannelRelation.payMchId}
+        </if>
+              <if test="paymentMchChannelRelation.payChannelCode != null and paymentMchChannelRelation.payChannelCode.trim() != ''">
+          AND pay_channel_code = #{paymentMchChannelRelation.payChannelCode}
+        </if>
+              <if test="paymentMchChannelRelation.payChannelAccount != null and paymentMchChannelRelation.payChannelAccount.trim() != ''">
+          AND pay_channel_account = #{paymentMchChannelRelation.payChannelAccount}
+        </if>
+              <if test="paymentMchChannelRelation.payChannelKey != null and paymentMchChannelRelation.payChannelKey.trim() != ''">
+          AND pay_channel_key = #{paymentMchChannelRelation.payChannelKey}
+        </if>
+              <if test="paymentMchChannelRelation.extendJson != null and paymentMchChannelRelation.extendJson.trim() != ''">
+          AND extend_json = #{paymentMchChannelRelation.extendJson}
+        </if>
+              <if test="paymentMchChannelRelation.state != null and paymentMchChannelRelation.state.trim() != ''">
+          AND state = #{paymentMchChannelRelation.state}
+        </if>
+              <if test="paymentMchChannelRelation.createTime != null and paymentMchChannelRelation.createTime.trim() != ''">
+          AND create_time = #{paymentMchChannelRelation.createTime}
+        </if>
+              <if test="paymentMchChannelRelation.updateTime != null and paymentMchChannelRelation.updateTime.trim() != ''">
+          AND update_time = #{paymentMchChannelRelation.updateTime}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

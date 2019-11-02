@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.dc.mapper.DeviceIssueMapper">
+
+	<resultMap id="deviceIssueMap" type="com.junfeng.platform.dc.entity.DeviceIssue">
+		<id property="id" column="id"/>
+		<result property="deviceId" column="device_id"/>
+		<result property="deviceCode" column="device_code"/>
+		<result property="ipAddress" column="ip_address"/>
+		<result property="issueDesc" column="issue_desc"/>
+		<result property="issueState" column="issue_state"/>
+		<result property="linkPerson" column="link_person"/>
+		<result property="issueType" column="issue_type"/>
+		<result property="linkPhone" column="link_phone"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--deviceIssue简单分页查询-->
+	<select id="getDeviceIssuePage" resultMap="deviceIssueMap">
+		SELECT
+		id,
+		device_id,
+		device_code,
+		ip_address,
+		issue_desc,
+		issue_state,
+		link_person,
+		issue_type,
+		link_phone,
+		create_time,
+		update_time,
+		create_by,
+		update_by,
+		del_flag
+		FROM dc_device_issue
+		<where>
+			<if test="deviceIssue.id != null">
+				AND id = #{deviceIssue.id}
+			</if>
+			<if test="deviceIssue.deviceId != null">
+				AND device_id = #{deviceIssue.deviceId}
+			</if>
+			<if test="deviceIssue.deviceCode != null and deviceIssue.deviceCode.trim() != ''">
+				AND device_code = #{deviceIssue.deviceCode}
+			</if>
+			<if test="deviceIssue.ipAddress != null and deviceIssue.ipAddress.trim() != ''">
+				AND ip_address = #{deviceIssue.ipAddress}
+			</if>
+			<if test="deviceIssue.issueDesc != null and deviceIssue.issueDesc.trim() != ''">
+				AND issue_desc = #{deviceIssue.issueDesc}
+			</if>
+			<if test="deviceIssue.issueState != null and deviceIssue.issueState.trim() != ''">
+				AND issue_state = #{deviceIssue.issueState}
+			</if>
+			<if test="deviceIssue.linkPerson != null and deviceIssue.linkPerson.trim() != ''">
+				AND link_person = #{deviceIssue.linkPerson}
+			</if>
+			<if test="deviceIssue.issueType != null and deviceIssue.issueType.trim() != ''">
+				AND issue_type = #{deviceIssue.issueType}
+			</if>
+			<if test="deviceIssue.linkPhone != null and deviceIssue.linkPhone.trim() != ''">
+				AND link_phone = #{deviceIssue.linkPhone}
+			</if>
+			<if test="deviceIssue.createTime != null">
+				AND create_time = #{deviceIssue.createTime}
+			</if>
+			<if test="deviceIssue.updateTime != null">
+				AND update_time = #{deviceIssue.updateTime}
+			</if>
+			<if test="deviceIssue.createBy != null and deviceIssue.createBy.trim() != ''">
+				AND create_by = #{deviceIssue.createBy}
+			</if>
+			<if test="deviceIssue.updateBy != null and deviceIssue.updateBy.trim() != ''">
+				AND update_by = #{deviceIssue.updateBy}
+			</if>
+			<!-- 不显示逻辑删除的记录
+			<if test="deviceIssue.delFlag != null and deviceIssue.delFlag.trim() != ''">
+				AND del_flag = #{deviceIssue.delFlag}
+			</if>
+			-->
+			AND del_flag = '0'
+		</where>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.payment.mapper.PaymentNotifyRecordMapper">
+
+  <resultMap id="paymentNotifyRecordMap" type="com.junfeng.platform.payment.api.entity.PaymentNotifyRecord">
+                  <id property="id" column="id"/>
+                        <result property="payMchId" column="pay_mch_id"/>
+                        <result property="paymentModeCode" column="payment_mode_code"/>
+                        <result property="payChannelCode" column="pay_channel_code"/>
+                        <result property="payOrderNo" column="pay_order_no"/>
+                        <result property="mchOrderNo" column="mch_order_no"/>
+                        <result property="tradeOrderNo" column="trade_order_no"/>
+                        <result property="amount" column="amount"/>
+                        <result property="notifyUrl" column="notify_url"/>
+                        <result property="notifyCount" column="notify_count"/>
+                        <result property="state" column="state"/>
+                        <result property="lastNotifyTime" column="last_notify_time"/>
+                        <result property="notifySuccessTime" column="notify_success_time"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+            </resultMap>
+
+  <!--paymentNotifyRecord简单分页查询-->
+  <select id="getPaymentNotifyRecordPage" resultMap="paymentNotifyRecordMap">
+    SELECT
+                  id,
+                        pay_mch_id,
+                        payment_mode_code,
+                        pay_channel_code,
+                        pay_order_no,
+                        mch_order_no,
+                        trade_order_no,
+                        amount,
+                        notify_url,
+                        notify_count,
+                        state,
+                        last_notify_time,
+                        notify_success_time,
+                        create_time,
+                        update_time
+              FROM payment_notify_record
+    <where>
+              <if test="paymentNotifyRecord.id != null and paymentNotifyRecord.id.trim() != ''">
+          AND id = #{paymentNotifyRecord.id}
+        </if>
+              <if test="paymentNotifyRecord.payMchId != null and paymentNotifyRecord.payMchId.trim() != ''">
+          AND pay_mch_id = #{paymentNotifyRecord.payMchId}
+        </if>
+              <if test="paymentNotifyRecord.paymentModeCode != null and paymentNotifyRecord.paymentModeCode.trim() != ''">
+          AND payment_mode_code = #{paymentNotifyRecord.paymentModeCode}
+        </if>
+              <if test="paymentNotifyRecord.payChannelCode != null and paymentNotifyRecord.payChannelCode.trim() != ''">
+          AND pay_channel_code = #{paymentNotifyRecord.payChannelCode}
+        </if>
+              <if test="paymentNotifyRecord.payOrderNo != null and paymentNotifyRecord.payOrderNo.trim() != ''">
+          AND pay_order_no = #{paymentNotifyRecord.payOrderNo}
+        </if>
+              <if test="paymentNotifyRecord.mchOrderNo != null and paymentNotifyRecord.mchOrderNo.trim() != ''">
+          AND mch_order_no = #{paymentNotifyRecord.mchOrderNo}
+        </if>
+              <if test="paymentNotifyRecord.tradeOrderNo != null and paymentNotifyRecord.tradeOrderNo.trim() != ''">
+          AND trade_order_no = #{paymentNotifyRecord.tradeOrderNo}
+        </if>
+              <if test="paymentNotifyRecord.amount != null and paymentNotifyRecord.amount.trim() != ''">
+          AND amount = #{paymentNotifyRecord.amount}
+        </if>
+              <if test="paymentNotifyRecord.notifyUrl != null and paymentNotifyRecord.notifyUrl.trim() != ''">
+          AND notify_url = #{paymentNotifyRecord.notifyUrl}
+        </if>
+              <if test="paymentNotifyRecord.notifyCount != null and paymentNotifyRecord.notifyCount.trim() != ''">
+          AND notify_count = #{paymentNotifyRecord.notifyCount}
+        </if>
+              <if test="paymentNotifyRecord.state != null and paymentNotifyRecord.state.trim() != ''">
+          AND state = #{paymentNotifyRecord.state}
+        </if>
+              <if test="paymentNotifyRecord.lastNotifyTime != null and paymentNotifyRecord.lastNotifyTime.trim() != ''">
+          AND last_notify_time = #{paymentNotifyRecord.lastNotifyTime}
+        </if>
+              <if test="paymentNotifyRecord.notifySuccessTime != null and paymentNotifyRecord.notifySuccessTime.trim() != ''">
+          AND notify_success_time = #{paymentNotifyRecord.notifySuccessTime}
+        </if>
+              <if test="paymentNotifyRecord.createTime != null and paymentNotifyRecord.createTime.trim() != ''">
+          AND create_time = #{paymentNotifyRecord.createTime}
+        </if>
+              <if test="paymentNotifyRecord.updateTime != null and paymentNotifyRecord.updateTime.trim() != ''">
+          AND update_time = #{paymentNotifyRecord.updateTime}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

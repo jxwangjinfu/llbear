@@ -1,0 +1,30 @@
+server:
+  port: 9900
+
+spring:
+  application:
+    name: uniapp-manager
+  # 配置中心
+  cloud:
+    config:
+      fail-fast: true
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: pig-config
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+
+# 注册中心
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://pig:pig@pig-eureka:8761/eureka/
+auth:
+  serverApi: http://192.168.199.199:9999
+  authorization: dW5pYXBwLW1hbmFnZXI6dW5pYXBwLW1hbmFnZXI=

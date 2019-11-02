@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.csc.mapper.PhoneMapper">
+
+  <resultMap id="phoneMap" type="com.junfeng.platform.csc.entity.Phone">
+                  <id property="id" column="id"/>
+                        <result property="name" column="name"/>
+                        <result property="phoneNumber" column="phone_number"/>
+                        <result property="onlineFlag" column="online_flag"/>
+                        <result property="thirdCode" column="third_code"/>
+                        <result property="workCode" column="work_code"/>
+	  					<result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--phone简单分页查询-->
+  <select id="getPhonePage" resultMap="phoneMap">
+    SELECT
+                  id,
+                        name,
+                        phone_number,
+                        online_flag,
+                        third_code,
+                        work_code,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM csc_phone
+    <where>
+              <if test="phone.id != null and phone.id.trim() != ''">
+          AND id = #{phone.id}
+        </if>
+              <if test="phone.name != null and phone.name.trim() != ''">
+          AND name = #{phone.name}
+        </if>
+              <if test="phone.phoneNumber != null and phone.phoneNumber.trim() != ''">
+          AND phone_number = #{phone.phoneNumber}
+        </if>
+              <if test="phone.onlineFlag != null and phone.onlineFlag.trim() != ''">
+          AND online_flag = #{phone.onlineFlag}
+        </if>
+              <if test="phone.thirdCode != null and phone.thirdCode.trim() != ''">
+          AND third_code = #{phone.thirdCode}
+        </if>
+              <if test="phone.workCode != null and phone.workCode.trim() != ''">
+          AND work_code = #{phone.workCode}
+        </if>
+		<if test="phone.delFlag != null">
+			AND del_flag = #{phone.delFlag}
+		</if>
+              <if test="phone.createTime != null and phone.createTime.trim() != ''">
+          AND create_time = #{phone.createTime}
+        </if>
+              <if test="phone.createBy != null and phone.createBy.trim() != ''">
+          AND create_by = #{phone.createBy}
+        </if>
+              <if test="phone.updateTime != null and phone.updateTime.trim() != ''">
+          AND update_time = #{phone.updateTime}
+        </if>
+              <if test="phone.updateBy != null and phone.updateBy.trim() != ''">
+          AND update_by = #{phone.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

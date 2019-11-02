@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.qc.mapper.OutQuartMapper">
+
+  <resultMap id="outQuartMap" type="com.junfeng.platform.qc.entity.OutQuart">
+                  <id property="id" column="id"/>
+                        <result property="outSysName" column="out_sys_name"/>
+                        <result property="jobName" column="job_name"/>
+                        <result property="jobGroup" column="job_group"/>
+                        <result property="triggerName" column="trigger_name"/>
+                        <result property="triggerGroup" column="trigger_group"/>
+                        <result property="jobClassName" column="job_class_name"/>
+                        <result property="cronExpression" column="cron_expression"/>
+                        <result property="param" column="param"/>
+                        <result property="callbackUrl" column="callback_url"/>
+                        <result property="callbackCount" column="callback_count"/>
+                        <result property="state" column="state"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--outQuart简单分页查询-->
+  <select id="getOutQuartPage" resultMap="outQuartMap">
+    SELECT
+                  id,
+                        out_sys_name,
+                        job_name,
+                        job_group,
+                        trigger_name,
+                        trigger_group,
+                        job_class_name,
+                        cron_expression,
+                        param,
+                        callback_url,
+                        callback_count,
+                        state,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM qc_out_quart
+    <where>
+              <if test="outQuart.id != null ">
+          AND id = #{outQuart.id}
+        </if>
+              <if test="outQuart.outSysName != null  and outQuart.outSysName.trim() != ''">
+          AND out_sys_name = #{outQuart.outSysName}
+        </if>
+              <if test="outQuart.jobName != null  and outQuart.jobName.trim() != ''">
+          AND job_name = #{outQuart.jobName}
+        </if>
+              <if test="outQuart.jobGroup != null  and outQuart.jobGroup.trim() != ''">
+          AND job_group = #{outQuart.jobGroup}
+        </if>
+              <if test="outQuart.triggerName != null  and outQuart.triggerName.trim() != ''">
+          AND trigger_name = #{outQuart.triggerName}
+        </if>
+              <if test="outQuart.triggerGroup != null  and outQuart.triggerGroup.trim() != ''">
+          AND trigger_group = #{outQuart.triggerGroup}
+        </if>
+              <if test="outQuart.jobClassName != null  and outQuart.jobClassName.trim() != ''">
+          AND job_class_name = #{outQuart.jobClassName}
+        </if>
+              <if test="outQuart.cronExpression != null  and outQuart.cronExpression.trim() != ''">
+          AND cron_expression = #{outQuart.cronExpression}
+        </if>
+              <if test="outQuart.param != null  and outQuart.param.trim() != ''">
+          AND param = #{outQuart.param}
+        </if>
+              <if test="outQuart.callbackUrl != null  and outQuart.callbackUrl.trim() != ''">
+          AND callback_url = #{outQuart.callbackUrl}
+        </if>
+              <if test="outQuart.callbackCount != null ">
+          AND callback_count = #{outQuart.callbackCount}
+        </if>
+              <if test="outQuart.state != null  and outQuart.state.trim() != ''">
+          AND state = #{outQuart.state}
+        </if>
+              <if test="outQuart.delFlag != null  and outQuart.delFlag.trim() != ''">
+          AND del_flag = #{outQuart.delFlag}
+        </if>
+              <if test="outQuart.createTime != null ">
+          AND create_time = #{outQuart.createTime}
+        </if>
+              <if test="outQuart.createBy != null  and outQuart.createBy.trim() != ''">
+          AND create_by = #{outQuart.createBy}
+        </if>
+              <if test="outQuart.updateTime != null ">
+          AND update_time = #{outQuart.updateTime}
+        </if>
+              <if test="outQuart.updateBy != null  and outQuart.updateBy.trim() != ''">
+          AND update_by = #{outQuart.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper
+	namespace="com.junfeng.platform.dc.mapper.CommandDetailMapper">
+
+	<resultMap id="commandDetailMap"
+		type="com.junfeng.platform.dc.entity.CommandDetail">
+		<id property="id" column="id" />
+		<result property="commandId" column="command_id" />
+		<result property="deviceId" column="device_id" />
+		<result property="status" column="status" />
+		<result property="cancelTime" column="cancel_time" />
+		<result property="remark" column="remark" />
+		<result property="createTime" column="create_time" />
+		<result property="updateTime" column="update_time" />
+		<result property="createBy" column="create_by" />
+		<result property="updateBy" column="update_by" />
+	</resultMap>
+
+	<!--commandDetail简单分页查询 -->
+	<select id="getCommandDetailPage" resultMap="commandDetailMap">
+		SELECT
+		id,
+		command_id,
+		device_id,
+		status,
+		cancel_time,
+		remark,
+		create_time,
+		update_time,
+		create_by,
+		update_by
+		FROM dc_command_detail
+		<where>
+			<if
+				test="commandDetail.id != null">
+				AND id = #{commandDetail.id}
+			</if>
+			<if
+				test="commandDetail.commandId != null">
+				AND command_id = #{commandDetail.commandId}
+			</if>
+			<if
+				test="commandDetail.deviceId != null and commandDetail.deviceId.trim() != ''">
+				AND device_id = #{commandDetail.deviceId}
+			</if>
+			<if
+				test="commandDetail.status != null and commandDetail.status.trim() != ''">
+				AND status = #{commandDetail.status}
+			</if>
+			<if
+				test="commandDetail.cancelTime != null and commandDetail.cancelTime.trim() != ''">
+				AND cancel_time = #{commandDetail.cancelTime}
+			</if>
+			<if
+				test="commandDetail.remark != null and commandDetail.remark.trim() != ''">
+				AND remark = #{commandDetail.remark}
+			</if>
+			<if
+				test="commandDetail.createTime != null and commandDetail.createTime.trim() != ''">
+				AND create_time = #{commandDetail.createTime}
+			</if>
+			<if
+				test="commandDetail.updateTime != null and commandDetail.updateTime.trim() != ''">
+				AND update_time = #{commandDetail.updateTime}
+			</if>
+			<if
+				test="commandDetail.createBy != null and commandDetail.createBy.trim() != ''">
+				AND create_by = #{commandDetail.createBy}
+			</if>
+			<if
+				test="commandDetail.updateBy != null and commandDetail.updateBy.trim() != ''">
+				AND update_by = #{commandDetail.updateBy}
+			</if>
+		</where>
+	</select>
+
+	<update id="done">
+		update dc_command_detail set status='2' where device_id=#{deviceId} and
+		command_id=#{commandId} and status='0'
+	</update>
+
+</mapper>

@@ -1,0 +1,37 @@
+security:
+  oauth2:
+    client:
+      client-id: warner-center
+      client-secret: warner-center
+      scope: server
+
+# 数据源
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: JunHeRoot123!
+    url: jdbc:mysql://tobacco.mysql.junhe:3306/pig?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+# 邮箱
+  mail:
+    host: smtp.163.com #SMTP服务器地址
+    username: jfjxkfb #登陆账号
+    password: jfjxkfb999 #登陆密码（或授权码）
+    properties:
+      from:  jfjxkfb@163.com #邮件发信人（即真实邮箱）
+
+# 直接放行URL
+ignore:
+  urls:
+    - /actuator/**
+    - /user/info/*
+    - /log/**
+
+# 默认邮箱
+sendMailTos:
+  default: 1397710623@qq.com
+
+# 默认webhook
+webhooks:
+  default: https://oapi.dingtalk.com/robot/send?access_token=5b01b1675548e3c4464f65e7423bc1dd99305c80605a8d70cdf3a8b3321d5f10

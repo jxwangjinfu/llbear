@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.junfeng.platform.payment.api.feign.fallback.RemotePaymentServiceFallbackImpl,\
+  com.junfeng.platform.payment.api.feign.factory.RemotePaymentServiceFallbackFactory
+
+

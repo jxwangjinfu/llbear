@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.BrandMapper">
+
+  <resultMap id="brandMap" type="com.junfeng.platform.pc.api.entity.Brand">
+                  <id property="id" column="id"/>
+                        <result property="name" column="name"/>
+                        <result property="image" column="image"/>
+                        <result property="letter" column="letter"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--brand简单分页查询-->
+  <select id="getBrandPage" resultMap="brandMap">
+    SELECT
+                  id,
+                        name,
+                        image,
+                        letter,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM pc_brand
+    <where>
+              <if test="brand.id != null and brand.id.trim() != ''">
+          AND id = #{brand.id}
+        </if>
+              <if test="brand.name != null and brand.name.trim() != ''">
+          AND name = #{brand.name}
+        </if>
+              <if test="brand.image != null and brand.image.trim() != ''">
+          AND image = #{brand.image}
+        </if>
+              <if test="brand.letter != null and brand.letter.trim() != ''">
+          AND letter = #{brand.letter}
+        </if>
+              <if test="brand.delFlag != null and brand.delFlag.trim() != ''">
+          AND del_flag = #{brand.delFlag}
+        </if>
+              <if test="brand.createTime != null and brand.createTime.trim() != ''">
+          AND create_time = #{brand.createTime}
+        </if>
+              <if test="brand.createBy != null and brand.createBy.trim() != ''">
+          AND create_by = #{brand.createBy}
+        </if>
+              <if test="brand.updateTime != null and brand.updateTime.trim() != ''">
+          AND update_time = #{brand.updateTime}
+        </if>
+              <if test="brand.updateBy != null and brand.updateBy.trim() != ''">
+          AND update_by = #{brand.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

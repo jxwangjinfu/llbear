@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.dc.mapper.DeviceConfigMapper">
+
+	<resultMap id="deviceConfigMap" type="com.junfeng.platform.dc.entity.DeviceConfig">
+		<id property="id" column="id"/>
+		<result property="deviceId" column="device_id"/>
+		<result property="config" column="config"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--deviceConfig简单分页查询-->
+	<select id="getDeviceConfigPage" resultMap="deviceConfigMap">
+		SELECT
+		id,
+		device_id,
+		config,
+		create_time,
+		update_time,
+		create_by,
+		update_by,
+		del_flag
+		FROM dc_device_config
+		<where>
+			<if test="deviceConfig.id != null">
+				AND id = #{deviceConfig.id}
+			</if>
+			<if test="deviceConfig.deviceId != null">
+				AND device_id = #{deviceConfig.deviceId}
+			</if>
+			<if test="deviceConfig.config != null and deviceConfig.config.trim() != ''">
+				AND config = #{deviceConfig.config}
+			</if>
+			<if test="deviceConfig.createTime != null">
+				AND create_time = #{deviceConfig.createTime}
+			</if>
+			<if test="deviceConfig.updateTime != null">
+				AND update_time = #{deviceConfig.updateTime}
+			</if>
+			<if test="deviceConfig.createBy != null and deviceConfig.createBy.trim() != ''">
+				AND create_by = #{deviceConfig.createBy}
+			</if>
+			<if test="deviceConfig.updateBy != null and deviceConfig.updateBy.trim() != ''">
+				AND update_by = #{deviceConfig.updateBy}
+			</if>
+			<!-- 不显示逻辑删除的记录
+			<if test="deviceConfig.delFlag != null and deviceConfig.delFlag.trim() != ''">
+				AND del_flag = #{deviceConfig.delFlag}
+			</if>
+			-->
+			AND del_flag = '0'
+		</where>
+	</select>
+
+
+</mapper>

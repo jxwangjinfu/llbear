@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.csc.mapper.OnlineRecordMapper">
+
+  <resultMap id="onlineRecordMap" type="com.junfeng.platform.csc.entity.OnlineRecord">
+                  <id property="id" column="id"/>
+                        <result property="userCode" column="user_code"/>
+                        <result property="memberCode" column="member_code"/>
+                        <result property="onlineType" column="online_type"/>
+                        <result property="createTime" column="create_time"/>
+            </resultMap>
+
+  <!--onlineRecord简单分页查询-->
+  <select id="getOnlineRecordPage" resultMap="onlineRecordMap">
+    SELECT
+                  id,
+                        user_code,
+                        member_code,
+                        online_type,
+                        create_time
+              FROM csc_online_record
+    <where>
+              <if test="onlineRecord.id != null and onlineRecord.id.trim() != ''">
+          AND id = #{onlineRecord.id}
+        </if>
+              <if test="onlineRecord.userCode != null and onlineRecord.userCode.trim() != ''">
+          AND user_code = #{onlineRecord.userCode}
+        </if>
+              <if test="onlineRecord.memberCode != null and onlineRecord.memberCode.trim() != ''">
+          AND member_code = #{onlineRecord.memberCode}
+        </if>
+              <if test="onlineRecord.onlineType != null and onlineRecord.onlineType.trim() != ''">
+          AND online_type = #{onlineRecord.onlineType}
+        </if>
+              <if test="onlineRecord.createTime != null and onlineRecord.createTime.trim() != ''">
+          AND create_time = #{onlineRecord.createTime}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

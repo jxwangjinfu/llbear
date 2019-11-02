@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.BuyGiftMapper">
+
+	<resultMap id="buyGiftMap" type="com.junfeng.platform.oc.entity.BuyGift">
+		<id property="id" column="id"/>
+		<result property="clientId" column="client_id"/>
+		<result property="giftName" column="gift_name"/>
+		<result property="state" column="state"/>
+		<result property="usableGoods" column="usable_goods"/>
+		<result property="useStartTime" column="use_start_time"/>
+		<result property="useEndTime" column="use_end_time"/>
+		<result property="levelType" column="level_type"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--buyGift简单分页查询-->
+	<select id="getBuyGiftPage" resultMap="buyGiftMap">
+		SELECT
+		id,
+		client_id,
+		gift_name,
+		state,
+		usable_goods,
+		use_start_time,
+		use_end_time,
+		level_type,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_buy_gift
+		<where>
+			<if test="buyGift.id != null">
+				AND id = #{buyGift.id}
+			</if>
+			<if test="buyGift.clientId != null and buyGift.clientId.trim() != ''">
+				AND client_id = #{buyGift.clientId}
+			</if>
+			<if test="buyGift.giftName != null and buyGift.giftName.trim() != ''">
+				AND gift_name = #{buyGift.giftName}
+			</if>
+			<if test="buyGift.state != null">
+				AND state = #{buyGift.state}
+			</if>
+			<if test="buyGift.usableGoods != null">
+				AND usable_goods = #{buyGift.usableGoods}
+			</if>
+			<if test="buyGift.useStartTime != null and buyGift.useStartTime.trim() != ''">
+				AND use_start_time = #{buyGift.useStartTime}
+			</if>
+			<if test="buyGift.useEndTime != null and buyGift.useEndTime.trim() != ''">
+				AND use_end_time = #{buyGift.useEndTime}
+			</if>
+			<if test="buyGift.levelType != null and buyGift.levelType.trim() != ''">
+				AND level_type = #{buyGift.levelType}
+			</if>
+			<if test="buyGift.delFlag != null and buyGift.delFlag.trim() != ''">
+				AND del_flag = #{buyGift.delFlag}
+			</if>
+			<if test="buyGift.createTime != null and buyGift.createTime.trim() != ''">
+				AND create_time = #{buyGift.createTime}
+			</if>
+			<if test="buyGift.createBy != null and buyGift.createBy.trim() != ''">
+				AND create_by = #{buyGift.createBy}
+			</if>
+			<if test="buyGift.updateTime != null and buyGift.updateTime.trim() != ''">
+				AND update_time = #{buyGift.updateTime}
+			</if>
+			<if test="buyGift.updateBy != null and buyGift.updateBy.trim() != ''">
+				AND update_by = #{buyGift.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

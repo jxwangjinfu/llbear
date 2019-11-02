@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.dc.mapper.DeviceAreaMapper">
+
+	<resultMap id="deviceAreaMap" type="com.junfeng.platform.dc.entity.DeviceArea">
+		<id property="id" column="id"/>
+		<result property="parentId" column="parent_id"/>
+		<result property="parentIds" column="parent_ids"/>
+		<result property="name" column="name"/>
+		<result property="sort" column="sort"/>
+		<result property="code" column="code"/>
+		<result property="type" column="type"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--deviceArea简单分页查询-->
+	<select id="getDeviceAreaPage" resultMap="deviceAreaMap">
+		SELECT
+		id,
+		parent_id,
+		parent_ids,
+		name,
+		sort,
+		code,
+		type,
+		create_time,
+		update_time,
+		create_by,
+		update_by,
+		del_flag
+		FROM dc_device_area
+		<where>
+			<if test="deviceArea.id != null  and deviceArea.id.trim() != ''">
+				AND id = #{deviceArea.id}
+			</if>
+			<if test="deviceArea.parentId != null  and deviceArea.parentId.trim() != ''">
+				AND parent_id = #{deviceArea.parentId}
+			</if>
+			<if test="deviceArea.parentIds != null  and deviceArea.parentIds.trim() != ''">
+				AND parent_ids = #{deviceArea.parentIds}
+			</if>
+			<if test="deviceArea.name != null  and deviceArea.name.trim() != ''">
+				AND name = #{deviceArea.name}
+			</if>
+			<if test="deviceArea.sort != null ">
+				AND sort = #{deviceArea.sort}
+			</if>
+			<if test="deviceArea.code != null ">
+				AND code = #{deviceArea.code}
+			</if>
+			<if test="deviceArea.type != null ">
+				AND type = #{deviceArea.type}
+			</if>
+			<if test="deviceArea.createTime != null ">
+				AND create_time = #{deviceArea.createTime}
+			</if>
+			<if test="deviceArea.updateTime != null ">
+				AND update_time = #{deviceArea.updateTime}
+			</if>
+			<if test="deviceArea.createBy != null  and deviceArea.createBy.trim() != ''">
+				AND create_by = #{deviceArea.createBy}
+			</if>
+			<if test="deviceArea.updateBy != null  and deviceArea.updateBy.trim() != ''">
+				AND update_by = #{deviceArea.updateBy}
+			</if>
+			<!-- 不显示逻辑删除的记录
+			<if test="deviceArea.delFlag != null  and deviceArea.delFlag.trim() != ''">
+				AND del_flag = #{deviceArea.delFlag}
+			</if>
+			-->
+			AND del_flag = '0'
+		</where>
+	</select>
+
+	<select id="getDictList" resultType="com.pig4cloud.pig.common.core.vo.DictVo">
+		select code as value,name as label from dc_device_area where del_flag = '0' and type = #{type}
+	</select>
+
+</mapper>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.payment.mapper.PaymentChannelMapper">
+
+  <resultMap id="paymentChannelMap" type="com.junfeng.platform.payment.api.entity.PaymentChannel">
+                  <id property="id" column="id"/>
+                        <result property="payChannelCode" column="pay_channel_code"/>
+                        <result property="name" column="name"/>
+                        <result property="state" column="state"/>
+                        <result property="param" column="param"/>
+                        <result property="remark" column="remark"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+            </resultMap>
+
+  <!--paymentChannel简单分页查询-->
+  <select id="getPaymentChannelPage" resultMap="paymentChannelMap">
+    SELECT
+                  id,
+                        pay_channel_code,
+                        name,
+                        state,
+                        param,
+                        remark,
+                        create_time,
+                        update_time
+              FROM payment_channel
+    <where>
+              <if test="paymentChannel.id != null and paymentChannel.id.trim() != ''">
+          AND id = #{paymentChannel.id}
+        </if>
+              <if test="paymentChannel.payChannelCode != null and paymentChannel.payChannelCode.trim() != ''">
+          AND pay_channel_code = #{paymentChannel.payChannelCode}
+        </if>
+              <if test="paymentChannel.name != null and paymentChannel.name.trim() != ''">
+          AND name = #{paymentChannel.name}
+        </if>
+              <if test="paymentChannel.state != null and paymentChannel.state.trim() != ''">
+          AND state = #{paymentChannel.state}
+        </if>
+              <if test="paymentChannel.param != null and paymentChannel.param.trim() != ''">
+          AND param = #{paymentChannel.param}
+        </if>
+              <if test="paymentChannel.remark != null and paymentChannel.remark.trim() != ''">
+          AND remark = #{paymentChannel.remark}
+        </if>
+              <if test="paymentChannel.createTime != null and paymentChannel.createTime.trim() != ''">
+          AND create_time = #{paymentChannel.createTime}
+        </if>
+              <if test="paymentChannel.updateTime != null and paymentChannel.updateTime.trim() != ''">
+          AND update_time = #{paymentChannel.updateTime}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

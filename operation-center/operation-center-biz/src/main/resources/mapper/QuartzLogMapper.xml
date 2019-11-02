@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.QuartzLogMapper">
+
+	<resultMap id="quartzLogMap" type="com.junfeng.platform.oc.entity.QuartzLog">
+		<id property="id" column="id"/>
+		<result property="ocQuartzId" column="oc_quartz_id"/>
+		<result property="ocQuartzType" column="oc_quartz_type"/>
+		<result property="ocQuartzState" column="oc_quartz_state"/>
+		<result property="jobTime" column="job_time"/>
+		<result property="jobName" column="job_name"/>
+		<result property="jobGroup" column="job_group"/>
+		<result property="context" column="context"/>
+		<result property="state" column="state"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--quartzLog简单分页查询-->
+	<select id="getQuartzLogPage" resultMap="quartzLogMap">
+		SELECT
+		id,
+		oc_quartz_id,
+		oc_quartz_type,
+		oc_quartz_state,
+		job_time,
+		job_name,
+		job_group,
+		context,
+		state,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_quartz_log
+		<where>
+			<if test="quartzLog.id != null">
+				AND id = #{quartzLog.id}
+			</if>
+			<if test="quartzLog.ocQuartzId != null">
+				AND oc_quartz_id = #{quartzLog.ocQuartzId}
+			</if>
+			<if test="quartzLog.ocQuartzType != null">
+				AND oc_quartz_type = #{quartzLog.ocQuartzType}
+			</if>
+			<if test="quartzLog.ocQuartzState != null">
+				AND oc_quartz_state = #{quartzLog.ocQuartzState}
+			</if>
+			<if test="quartzLog.jobTime != null and quartzLog.jobTime.trim() != ''">
+				AND job_time = #{quartzLog.jobTime}
+			</if>
+			<if test="quartzLog.jobName != null and quartzLog.jobName.trim() != ''">
+				AND job_name = #{quartzLog.jobName}
+			</if>
+			<if test="quartzLog.jobGroup != null and quartzLog.jobGroup.trim() != ''">
+				AND job_group = #{quartzLog.jobGroup}
+			</if>
+			<if test="quartzLog.context != null and quartzLog.context.trim() != ''">
+				AND context = #{quartzLog.context}
+			</if>
+			<if test="quartzLog.state != null">
+				AND state = #{quartzLog.state}
+			</if>
+			<if test="quartzLog.delFlag != null and quartzLog.delFlag.trim() != ''">
+				AND del_flag = #{quartzLog.delFlag}
+			</if>
+			<if test="quartzLog.createTime != null and quartzLog.createTime.trim() != ''">
+				AND create_time = #{quartzLog.createTime}
+			</if>
+			<if test="quartzLog.createBy != null and quartzLog.createBy.trim() != ''">
+				AND create_by = #{quartzLog.createBy}
+			</if>
+			<if test="quartzLog.updateTime != null and quartzLog.updateTime.trim() != ''">
+				AND update_time = #{quartzLog.updateTime}
+			</if>
+			<if test="quartzLog.updateBy != null and quartzLog.updateBy.trim() != ''">
+				AND update_by = #{quartzLog.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

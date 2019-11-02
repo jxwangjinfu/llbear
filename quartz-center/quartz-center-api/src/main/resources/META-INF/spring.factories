@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.junfeng.platform.qc.api.feign.fallback.RemoteQuartzServiceFallbackImpl,\
+  com.junfeng.platform.qc.api.feign.factory.RemoteQuartzServiceFallbackFactory

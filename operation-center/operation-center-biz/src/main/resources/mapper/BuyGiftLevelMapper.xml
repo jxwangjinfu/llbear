@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.BuyGiftLevelMapper">
+
+	<resultMap id="buyGiftLevelMap" type="com.junfeng.platform.oc.entity.BuyGiftLevel">
+		<id property="id" column="id"/>
+		<result property="ocBuyGiftId" column="oc_buy_gift_id"/>
+		<result property="orderUsePre" column="order_use_pre"/>
+		<result property="isPost" column="is_post"/>
+		<result property="points" column="points"/>
+		<result property="isCoupon" column="is_coupon"/>
+		<result property="isRedEnvelope" column="is_red_envelope"/>
+		<result property="isGift" column="is_gift"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--buyGiftLevel简单分页查询-->
+	<select id="getBuyGiftLevelPage" resultMap="buyGiftLevelMap">
+		SELECT
+		id,
+		oc_buy_gift_id,
+		order_use_pre,
+		is_post,
+		points,
+		is_coupon,
+		is_red_envelope,
+		is_gift,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_buy_gift_level
+		<where>
+			<if test="buyGiftLevel.id != null">
+				AND id = #{buyGiftLevel.id}
+			</if>
+			<if test="buyGiftLevel.ocBuyGiftId != null">
+				AND oc_buy_gift_id = #{buyGiftLevel.ocBuyGiftId}
+			</if>
+			<if test="buyGiftLevel.orderUsePre != null">
+				AND order_use_pre = #{buyGiftLevel.orderUsePre}
+			</if>
+			<if test="buyGiftLevel.isPost != null">
+				AND is_post = #{buyGiftLevel.isPost}
+			</if>
+			<if test="buyGiftLevel.points != null">
+				AND points = #{buyGiftLevel.points}
+			</if>
+			<if test="buyGiftLevel.isCoupon != null">
+				AND is_coupon = #{buyGiftLevel.isCoupon}
+			</if>
+			<if test="buyGiftLevel.isRedEnvelope != null">
+				AND is_red_envelope = #{buyGiftLevel.isRedEnvelope}
+			</if>
+			<if test="buyGiftLevel.isGift != null">
+				AND is_gift = #{buyGiftLevel.isGift}
+			</if>
+			<if test="buyGiftLevel.delFlag != null and buyGiftLevel.delFlag.trim() != ''">
+				AND del_flag = #{buyGiftLevel.delFlag}
+			</if>
+			<if test="buyGiftLevel.createTime != null and buyGiftLevel.createTime.trim() != ''">
+				AND create_time = #{buyGiftLevel.createTime}
+			</if>
+			<if test="buyGiftLevel.createBy != null and buyGiftLevel.createBy.trim() != ''">
+				AND create_by = #{buyGiftLevel.createBy}
+			</if>
+			<if test="buyGiftLevel.updateTime != null and buyGiftLevel.updateTime.trim() != ''">
+				AND update_time = #{buyGiftLevel.updateTime}
+			</if>
+			<if test="buyGiftLevel.updateBy != null and buyGiftLevel.updateBy.trim() != ''">
+				AND update_by = #{buyGiftLevel.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+	<select id="getBuyGiftLevel" resultMap="buyGiftLevelMap">
+		SELECT
+		a.*
+		FROM
+		oc_buy_gift_level a
+		INNER JOIN oc_buy_gift b ON a.oc_buy_gift_id = b.id
+		WHERE
+		b.state = 1
+		<if test="orderVO.clientId != null and orderVO.clientId.trim() != ''">
+			AND b.client_id = #{orderVO.clientId}
+		</if>
+		<if test="orderVO.totalPrice != null">
+			<![CDATA[
+			AND a.order_use_pre <= #{orderVO.totalPrice}
+			]]>
+		</if>
+		ORDER BY a.order_use_pre LIMIT 1
+	</select>
+
+</mapper>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.wc.mapper.MiniappMapper">
+
+  <resultMap id="miniappMap" type="com.junfeng.wc.entity.Miniapp">
+                  <id property="id" column="id"/>
+                        <result property="name" column="name"/>
+                        <result property="appId" column="app_id"/>
+                        <result property="secret" column="secret"/>
+                        <result property="token" column="token"/>
+                        <result property="aesKey" column="aes_key"/>
+            </resultMap>
+
+  <!--miniapp简单分页查询-->
+  <select id="getMiniappPage" resultMap="miniappMap">
+    SELECT
+                  id,
+                        name,
+                        app_id,
+                        secret,
+                        token,
+                        aes_key
+              FROM wx_miniapp
+    <where>
+              <if test="miniapp.id != null and miniapp.id.trim() != ''">
+          AND id = #{miniapp.id}
+        </if>
+              <if test="miniapp.name != null and miniapp.name.trim() != ''">
+          AND name = #{miniapp.name}
+        </if>
+              <if test="miniapp.appId != null and miniapp.appId.trim() != ''">
+          AND app_id = #{miniapp.appId}
+        </if>
+              <if test="miniapp.secret != null and miniapp.secret.trim() != ''">
+          AND secret = #{miniapp.secret}
+        </if>
+              <if test="miniapp.token != null and miniapp.token.trim() != ''">
+          AND token = #{miniapp.token}
+        </if>
+              <if test="miniapp.aesKey != null and miniapp.aesKey.trim() != ''">
+          AND aes_key = #{miniapp.aesKey}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

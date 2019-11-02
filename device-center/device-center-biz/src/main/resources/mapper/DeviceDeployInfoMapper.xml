@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.dc.mapper.DeviceDeployInfoMapper">
+
+	<resultMap id="deviceDeployInfoMap" type="com.junfeng.platform.dc.entity.DeviceDeployInfo">
+		<id property="id" column="id"/>
+		<result property="deviceId" column="device_id"/>
+		<result property="deviceTypeCode" column="device_type_code"/>
+		<result property="sn" column="sn"/>
+		<result property="linkPerson" column="link_person"/>
+		<result property="linkPhone" column="link_phone"/>
+		<result property="useDepartment" column="use_department"/>
+		<result property="deployArea" column="deploy_area"/>
+		<result property="deployAreaCode" column="deploy_area_code"/>
+		<result property="otherPropertyJson" column="other_property_json"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--deviceDeployInfo简单分页查询-->
+	<select id="getDeviceDeployInfoPage" resultMap="deviceDeployInfoMap">
+		SELECT
+		id,
+		device_id,
+		device_type_code,
+		sn,
+		link_person,
+		link_phone,
+		use_department,
+		deploy_area,
+		other_property_json,
+		create_time,
+		update_time,
+		create_by,
+		update_by,
+		del_flag
+		FROM dc_device_deploy_info
+		<where>
+			<if test="deviceDeployInfo.id != null">
+				AND id = #{deviceDeployInfo.id}
+			</if>
+			<if test="deviceDeployInfo.deviceId != null">
+				AND device_id = #{deviceDeployInfo.deviceId}
+			</if>
+			<if test="deviceDeployInfo.deviceTypeCode != null and deviceDeployInfo.deviceTypeCode.trim() != ''">
+				AND device_type_code = #{deviceDeployInfo.deviceTypeCode}
+			</if>
+			<if test="deviceDeployInfo.sn != null and deviceDeployInfo.sn.trim() != ''">
+				AND sn = #{deviceDeployInfo.sn}
+			</if>
+			<if test="deviceDeployInfo.linkPerson != null and deviceDeployInfo.linkPerson.trim() != ''">
+				AND link_person = #{deviceDeployInfo.linkPerson}
+			</if>
+			<if test="deviceDeployInfo.linkPhone != null and deviceDeployInfo.linkPhone.trim() != ''">
+				AND link_phone = #{deviceDeployInfo.linkPhone}
+			</if>
+			<if test="deviceDeployInfo.useDepartment != null and deviceDeployInfo.useDepartment.trim() != ''">
+				AND use_department = #{deviceDeployInfo.useDepartment}
+			</if>
+			<if test="deviceDeployInfo.deployArea != null and deviceDeployInfo.deployArea.trim() != ''">
+				AND deploy_area = #{deviceDeployInfo.deployArea}
+			</if>
+			<if test="deviceDeployInfo.deployAreaCode != null">
+				AND deploy_area_code = #{deviceDeployInfo.deployAreaCode}
+			</if>
+			<if test="deviceDeployInfo.otherPropertyJson != null and deviceDeployInfo.otherPropertyJson.trim() != ''">
+				AND other_property_json = #{deviceDeployInfo.otherPropertyJson}
+			</if>
+			<if test="deviceDeployInfo.createTime != null">
+				AND create_time = #{deviceDeployInfo.createTime}
+			</if>
+			<if test="deviceDeployInfo.updateTime != null">
+				AND update_time = #{deviceDeployInfo.updateTime}
+			</if>
+			<if test="deviceDeployInfo.createBy != null and deviceDeployInfo.createBy.trim() != ''">
+				AND create_by = #{deviceDeployInfo.createBy}
+			</if>
+			<if test="deviceDeployInfo.updateBy != null and deviceDeployInfo.updateBy.trim() != ''">
+				AND update_by = #{deviceDeployInfo.updateBy}
+			</if>
+			<!-- 不显示逻辑删除的记录
+			<if test="deviceDeployInfo.delFlag != null and deviceDeployInfo.delFlag.trim() != ''">
+				AND del_flag = #{deviceDeployInfo.delFlag}
+			</if>
+			-->
+			AND del_flag = '0'
+		</where>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.CouponMapper">
+
+	<resultMap id="couponMap" type="com.junfeng.platform.oc.entity.Coupon">
+		<id property="id" column="id"/>
+		<result property="clientId" column="client_id"/>
+		<result property="couponName" column="coupon_name"/>
+		<result property="state" column="state"/>
+		<result property="typeCode" column="type_code"/>
+		<result property="publishNumber" column="publish_number"/>
+		<result property="useNumber" column="use_number"/>
+		<result property="recipientsNumber" column="recipients_number"/>
+		<result property="unUseNumber" column="un_use_number"/>
+		<result property="orderPayMoneyTotal" column="order_pay_money_total"/>
+		<result property="usableGoods" column="usable_goods"/>
+		<result property="orderUsePre" column="order_use_pre"/>
+		<result property="discountContext" column="discount_context"/>
+		<result property="useStartTime" column="use_start_time"/>
+		<result property="useEndTime" column="use_end_time"/>
+		<result property="recipientsLimit" column="recipients_limit"/>
+		<result property="recipientsNumberLimit" column="recipients_number_limit"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--coupon简单分页查询-->
+	<select id="getCouponPage" resultMap="couponMap">
+		SELECT
+		id,
+		client_id,
+		coupon_name,
+		state,
+		type_code,
+		publish_number,
+		use_number,
+		recipients_number,
+		un_use_number,
+		order_pay_money_total,
+		usable_goods,
+		order_use_pre,
+		discount_context,
+		use_start_time,
+		use_end_time,
+		recipients_limit,
+		recipients_number_limit,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_coupon
+		<where>
+			<if test="coupon.id != null">
+				AND id = #{coupon.id}
+			</if>
+			<if test="coupon.clientId != null and coupon.clientId.trim() != ''">
+				AND client_id = #{coupon.clientId}
+			</if>
+			<if test="coupon.couponName != null and coupon.couponName.trim() != ''">
+				AND coupon_name = #{coupon.couponName}
+			</if>
+			<if test="coupon.state != null">
+				AND state = #{coupon.state}
+			</if>
+			<if test="coupon.typeCode != null">
+				AND type_code = #{coupon.typeCode}
+			</if>
+			<if test="coupon.publishNumber != null">
+				AND publish_number = #{coupon.publishNumber}
+			</if>
+			<if test="coupon.useNumber != null">
+				AND use_number = #{coupon.useNumber}
+			</if>
+			<if test="coupon.recipientsNumber != null">
+				AND recipients_number = #{coupon.recipientsNumber}
+			</if>
+			<if test="coupon.unUseNumber != null">
+				AND un_use_number = #{coupon.unUseNumber}
+			</if>
+			<if test="coupon.orderPayMoneyTotal != null">
+				AND order_pay_money_total = #{coupon.orderPayMoneyTotal}
+			</if>
+			<if test="coupon.usableGoods != null">
+				AND usable_goods = #{coupon.usableGoods}
+			</if>
+			<if test="coupon.orderUsePre != null">
+				AND order_use_pre = #{coupon.orderUsePre}
+			</if>
+			<if test="coupon.discountContext != null and coupon.discountContext.trim() != ''">
+				AND discount_context = #{coupon.discountContext}
+			</if>
+			<if test="coupon.useStartTime != null and coupon.useStartTime.trim() != ''">
+				AND use_start_time = #{coupon.useStartTime}
+			</if>
+			<if test="coupon.useEndTime != null and coupon.useEndTime.trim() != ''">
+				AND use_end_time = #{coupon.useEndTime}
+			</if>
+			<if test="coupon.recipientsLimit != null">
+				AND recipients_limit = #{coupon.recipientsLimit}
+			</if>
+			<if test="coupon.recipientsNumberLimit != null">
+				AND recipients_number_limit = #{coupon.recipientsNumberLimit}
+			</if>
+			<if test="coupon.delFlag != null and coupon.delFlag.trim() != ''">
+				AND del_flag = #{coupon.delFlag}
+			</if>
+			<if test="coupon.createTime != null and coupon.createTime.trim() != ''">
+				AND create_time = #{coupon.createTime}
+			</if>
+			<if test="coupon.createBy != null and coupon.createBy.trim() != ''">
+				AND create_by = #{coupon.createBy}
+			</if>
+			<if test="coupon.updateTime != null and coupon.updateTime.trim() != ''">
+				AND update_time = #{coupon.updateTime}
+			</if>
+			<if test="coupon.updateBy != null and coupon.updateBy.trim() != ''">
+				AND update_by = #{coupon.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

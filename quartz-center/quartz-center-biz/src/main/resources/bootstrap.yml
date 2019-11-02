@@ -1,0 +1,46 @@
+server:
+  port: 4600
+spring:
+  application:
+    name: quartz-center
+  # 配置中心
+  cloud:
+    config:
+      fail-fast: true
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: pig-config
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+# 注册中心配置
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://pig:pig@pig-eureka:8761/eureka/
+    
+
+logging:
+  level:
+    org.springframework: INFO
+
+## quartz配置    
+org:
+  quartz:
+    schedulerInstanceName: ActivityScheduler
+    schedulerInstanceId: AUTO
+    threadPoolClass: org.quartz.simpl.SimpleThreadPool
+    threadPoolThreadCount: 20
+    threadPoolThreadPriority: 5
+    jobStoreClass: org.quartz.impl.jdbcjobstore.JobStoreTX
+    jobStoreIsClustered: true
+    jobStoreClusterCheckinInterval: 15000
+    jobStoreMaxMisfiresToHandleAtATime: 1
+    jobStoreTxIsolationLevelSerializable: true
+    jobStoreMisfireThreshold: 12000
+    jobStoreTablePrefix: QRTZ_  

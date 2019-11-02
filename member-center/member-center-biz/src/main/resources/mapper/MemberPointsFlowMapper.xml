@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.mc.mapper.MemberPointsFlowMapper">
+
+	<resultMap id="memberPointsFlowMap" type="com.junfeng.platform.mc.api.entity.MemberPointsFlow">
+		<id property="id" column="id"/>
+		<result property="memberid" column="memberId"/>
+		<result property="operationType" column="operation_type"/>
+		<result property="pointsType" column="points_type"/>
+		<result property="points" column="points"/>
+		<result property="beforepoints" column="beforePoints"/>
+		<result property="afterpoints" column="afterPoints"/>
+		<result property="remark" column="remark"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--memberPointsFlow简单分页查询-->
+	<select id="getMemberPointsFlowPage" resultMap="memberPointsFlowMap">
+		SELECT
+		id,
+		memberId,
+		operation_type,
+		points_type,
+		points,
+		beforePoints,
+		afterPoints,
+		remark,
+		create_time,
+		create_by,
+		update_time,
+		update_by,
+		del_flag
+		FROM mc_member_points_flow
+		<where>
+			<if test="memberPointsFlow.id != null and memberPointsFlow.id != 0">
+				AND id = #{memberPointsFlow.id}
+			</if>
+			<if test="memberPointsFlow.memberid != null and memberPointsFlow.memberid.trim() != ''">
+				AND memberId = #{memberPointsFlow.memberid}
+			</if>
+			<if test="memberPointsFlow.operationType != null and memberPointsFlow.operationType.trim() != ''">
+				AND operation_type = #{memberPointsFlow.operationType}
+			</if>
+			<if test="memberPointsFlow.pointsType != null and memberPointsFlow.pointsType.trim() != ''">
+				AND points_type = #{memberPointsFlow.pointsType}
+			</if>
+			<if test="memberPointsFlow.points != null and memberPointsFlow.points.trim() != ''">
+				AND points = #{memberPointsFlow.points}
+			</if>
+			<if test="memberPointsFlow.beforepoints != null and memberPointsFlow.beforepoints.trim() != ''">
+				AND beforePoints = #{memberPointsFlow.beforepoints}
+			</if>
+			<if test="memberPointsFlow.afterpoints != null and memberPointsFlow.afterpoints.trim() != ''">
+				AND afterPoints = #{memberPointsFlow.afterpoints}
+			</if>
+			<if test="memberPointsFlow.remark != null and memberPointsFlow.remark.trim() != ''">
+				AND remark = #{memberPointsFlow.remark}
+			</if>
+			<if test="memberPointsFlow.createTime != null and memberPointsFlow.createTime.trim() != ''">
+				AND create_time = #{memberPointsFlow.createTime}
+			</if>
+			<if test="memberPointsFlow.createBy != null and memberPointsFlow.createBy.trim() != ''">
+				AND create_by = #{memberPointsFlow.createBy}
+			</if>
+			<if test="memberPointsFlow.updateTime != null and memberPointsFlow.updateTime.trim() != ''">
+				AND update_time = #{memberPointsFlow.updateTime}
+			</if>
+			<if test="memberPointsFlow.updateBy != null and memberPointsFlow.updateBy.trim() != ''">
+				AND update_by = #{memberPointsFlow.updateBy}
+			</if>
+			<if test="memberPointsFlow.delFlag != null and memberPointsFlow.delFlag.trim() != ''">
+				AND del_flag = #{memberPointsFlow.delFlag}
+			</if>
+		</where>
+	</select>
+
+
+</mapper>

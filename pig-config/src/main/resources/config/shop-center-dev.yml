@@ -1,0 +1,22 @@
+security:
+  oauth2:
+    client:
+      client-id: ENC(DSUOM44DsBzo0f+mDW5TMCvjHnikvAsf)
+      client-secret: ENC(1uSaGmwA0iW9mt9k2TXeF45Ao1qcIrL7)
+      scope: server
+
+# 数据源
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: JunHeRoot123!
+    url: jdbc:mysql://tobacco.mysql.junhe:3306/pig?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+
+# 直接放行URL
+ignore:
+  urls:
+    - /actuator/**
+    - /user/info/*
+    - /log/**

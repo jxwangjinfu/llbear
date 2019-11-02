@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.SpuMapper">
+
+  <resultMap id="spuMap" type="com.junfeng.platform.pc.api.entity.Spu">
+                  <id property="id" column="id"/>
+                        <result property="clientId" column="client_id"/>
+                        <result property="title" column="title"/>
+                        <result property="subTitle" column="sub_title"/>
+                        <result property="shopCode" column="shop_code"/>
+                        <result property="categoryCode" column="category_code"/>
+                        <result property="brandCode" column="brand_code"/>
+                        <result property="images" column="images"/>
+                        <result property="saleCount" column="sale_count"/>
+                        <result property="saleFlag" column="sale_flag"/>
+                        <result property="querySpecification" column="query_specification"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="freeShippingFlag" column="free_shipping_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--spu简单分页查询-->
+  <select id="getSpuPage" resultMap="spuMap">
+    SELECT
+                  id,
+                        client_id,
+                        title,
+                        sub_title,
+                        shop_code,
+                        category_code,
+                        brand_code,
+                        images,
+                        sale_count,
+                        sale_flag,
+                        query_specification,
+                        del_flag,
+                        free_shipping_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM pc_spu
+    <where>
+              <if test="spu.id != null and spu.id.trim() != ''">
+          AND id = #{spu.id}
+        </if>
+              <if test="spu.clientId != null and spu.clientId.trim() != ''">
+          AND client_id = #{spu.clientId}
+        </if>
+              <if test="spu.title != null and spu.title.trim() != ''">
+          AND title = #{spu.title}
+        </if>
+              <if test="spu.subTitle != null and spu.subTitle.trim() != ''">
+          AND sub_title = #{spu.subTitle}
+        </if>
+              <if test="spu.shopCode != null and spu.shopCode.trim() != ''">
+          AND shop_code = #{spu.shopCode}
+        </if>
+              <if test="spu.categoryCode != null and spu.categoryCode.trim() != ''">
+          AND category_code = #{spu.categoryCode}
+        </if>
+              <if test="spu.brandCode != null and spu.brandCode.trim() != ''">
+          AND brand_code = #{spu.brandCode}
+        </if>
+              <if test="spu.images != null and spu.images.trim() != ''">
+          AND images = #{spu.images}
+        </if>
+              <if test="spu.saleCount != null and spu.saleCount.trim() != ''">
+          AND sale_count = #{spu.saleCount}
+        </if>
+              <if test="spu.saleFlag != null and spu.saleFlag.trim() != ''">
+          AND sale_flag = #{spu.saleFlag}
+        </if>
+              <if test="spu.querySpecification != null and spu.querySpecification.trim() != ''">
+          AND query_specification = #{spu.querySpecification}
+        </if>
+              <if test="spu.delFlag != null and spu.delFlag.trim() != ''">
+          AND del_flag = #{spu.delFlag}
+        </if>
+              <if test="spu.freeShippingFlag != null and spu.freeShippingFlag.trim() != ''">
+          AND free_shipping_flag = #{spu.freeShippingFlag}
+        </if>
+              <if test="spu.createTime != null and spu.createTime.trim() != ''">
+          AND create_time = #{spu.createTime}
+        </if>
+              <if test="spu.createBy != null and spu.createBy.trim() != ''">
+          AND create_by = #{spu.createBy}
+        </if>
+              <if test="spu.updateTime != null and spu.updateTime.trim() != ''">
+          AND update_time = #{spu.updateTime}
+        </if>
+              <if test="spu.updateBy != null and spu.updateBy.trim() != ''">
+          AND update_by = #{spu.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

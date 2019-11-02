@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.mc.mapper.MemberMapper">
+
+  <resultMap id="memberMap" type="com.junfeng.platform.mc.api.entity.Member">
+                  <id property="id" column="id"/>
+                        <result property="nickName" column="nick_name"/>
+                        <result property="mobile" column="mobile"/>
+                        <result property="email" column="email"/>
+                        <result property="userId" column="user_id"/>
+                        <result property="identityId" column="identity_id"/>
+                        <result property="openId" column="open_id"/>
+                        <result property="scope" column="scope"/>
+                        <result property="levelValue" column="level_value"/>
+                        <result property="points" column="points"/>
+                        <result property="balance" column="balance"/>
+                        <result property="gender" column="gender"/>
+                        <result property="age" column="age"/>
+                        <result property="birth" column="birth"/>
+                        <result property="remark" column="remark"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+                        <result property="delFlag" column="del_flag"/>
+            </resultMap>
+
+  <!--member简单分页查询-->
+  <select id="getMemberPage" resultMap="memberMap">
+    SELECT
+                  id,
+                        nick_name,
+                        mobile,
+                        email,
+                        user_id,
+                        identity_id,
+                        open_id,
+                        scope,
+                        level_value,
+                        points,
+                        balance,
+                        gender,
+                        age,
+                        birth,
+                        remark,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by,
+                        del_flag
+              FROM mc_member
+    <where>
+              <if test="member.id != null and member.id != 0">
+          AND id = #{member.id}
+        </if>
+              <if test="member.nickName != null and member.nickName.trim() != ''">
+          AND nick_name = #{member.nickName}
+        </if>
+              <if test="member.mobile != null and member.mobile.trim() != ''">
+          AND mobile = #{member.mobile}
+        </if>
+              <if test="member.email != null and member.email.trim() != ''">
+          AND email = #{member.email}
+        </if>
+              <if test="member.userId != null and member.userId.trim() != ''">
+          AND user_id = #{member.userId}
+        </if>
+              <if test="member.identityId != null and member.identityId.trim() != ''">
+          AND identity_id = #{member.identityId}
+        </if>
+              <if test="member.openId != null and member.openId.trim() != ''">
+          AND open_id = #{member.openId}
+        </if>
+              <if test="member.scope != null and member.scope.trim() != ''">
+          AND scope = #{member.scope}
+        </if>
+              <if test="member.levelValue != null and member.levelValue.trim() != ''">
+          AND level_value = #{member.levelValue}
+        </if>
+              <if test="member.points != null and member.points.trim() != ''">
+          AND points = #{member.points}
+        </if>
+              <if test="member.balance != null and member.balance.trim() != ''">
+          AND balance = #{member.balance}
+        </if>
+              <if test="member.gender != null and member.gender.trim() != ''">
+          AND gender = #{member.gender}
+        </if>
+              <if test="member.age != null and member.age.trim() != ''">
+          AND age = #{member.age}
+        </if>
+              <if test="member.birth != null and member.birth.trim() != ''">
+          AND birth = #{member.birth}
+        </if>
+              <if test="member.remark != null and member.remark.trim() != ''">
+          AND remark = #{member.remark}
+        </if>
+              <if test="member.createTime != null and member.createTime.trim() != ''">
+          AND create_time = #{member.createTime}
+        </if>
+              <if test="member.createBy != null and member.createBy.trim() != ''">
+          AND create_by = #{member.createBy}
+        </if>
+              <if test="member.updateTime != null and member.updateTime.trim() != ''">
+          AND update_time = #{member.updateTime}
+        </if>
+              <if test="member.updateBy != null and member.updateBy.trim() != ''">
+          AND update_by = #{member.updateBy}
+        </if>
+              <if test="member.delFlag != null and member.delFlag.trim() != ''">
+          AND del_flag = #{member.delFlag}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

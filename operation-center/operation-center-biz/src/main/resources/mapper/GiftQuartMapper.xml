@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.GiftQuartMapper">
+
+	<resultMap id="giftQuartMap" type="com.junfeng.platform.oc.entity.GiftQuart">
+		<id property="id" column="id"/>
+		<result property="giftId" column="gift_id"/>
+		<result property="giftState" column="gift_state"/>
+		<result property="jobTime" column="job_time"/>
+		<result property="jobName" column="job_name"/>
+		<result property="jobGroup" column="job_group"/>
+		<result property="context" column="context"/>
+		<result property="state" column="state"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--giftQuart简单分页查询-->
+	<select id="getGiftQuartPage" resultMap="giftQuartMap">
+		SELECT
+		id,
+		gift_id,
+		gift_state,
+		job_time,
+		job_name,
+		job_group,
+		context,
+		state,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_gift_quart
+		<where>
+			<if test="giftQuart.id != null and giftQuart.id.trim() != ''">
+				AND id = #{giftQuart.id}
+			</if>
+			<if test="giftQuart.giftId != null and giftQuart.giftId.trim() != ''">
+				AND gift_id = #{giftQuart.giftId}
+			</if>
+			<if test="giftQuart.giftState != null and giftQuart.giftState.trim() != ''">
+				AND gift_state = #{giftQuart.giftState}
+			</if>
+			<if test="giftQuart.jobTime != null and giftQuart.jobTime.trim() != ''">
+				AND job_time = #{giftQuart.jobTime}
+			</if>
+			<if test="giftQuart.jobName != null and giftQuart.jobName.trim() != ''">
+				AND job_name = #{giftQuart.jobName}
+			</if>
+			<if test="giftQuart.jobGroup != null and giftQuart.jobGroup.trim() != ''">
+				AND job_group = #{giftQuart.jobGroup}
+			</if>
+			<if test="giftQuart.context != null and giftQuart.context.trim() != ''">
+				AND context = #{giftQuart.context}
+			</if>
+			<if test="giftQuart.state != null and giftQuart.state.trim() != ''">
+				AND state = #{giftQuart.state}
+			</if>
+			<if test="giftQuart.delFlag != null and giftQuart.delFlag.trim() != ''">
+				AND del_flag = #{giftQuart.delFlag}
+			</if>
+			<if test="giftQuart.createTime != null and giftQuart.createTime.trim() != ''">
+				AND create_time = #{giftQuart.createTime}
+			</if>
+			<if test="giftQuart.createBy != null and giftQuart.createBy.trim() != ''">
+				AND create_by = #{giftQuart.createBy}
+			</if>
+			<if test="giftQuart.updateTime != null and giftQuart.updateTime.trim() != ''">
+				AND update_time = #{giftQuart.updateTime}
+			</if>
+			<if test="giftQuart.updateBy != null and giftQuart.updateBy.trim() != ''">
+				AND update_by = #{giftQuart.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

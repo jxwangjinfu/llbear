@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.junfeng.platform.oc.api.feign.fallback.OcRemoteServiceFallbackImpl,\
+  com.junfeng.platform.oc.api.feign.factory.OcRemoteServiceFallbackFactory

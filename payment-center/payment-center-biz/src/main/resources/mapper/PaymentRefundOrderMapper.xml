@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.payment.mapper.PaymentRefundOrderMapper">
+
+  <resultMap id="paymentRefundOrderMap" type="com.junfeng.platform.payment.api.entity.PaymentRefundOrder">
+                  <id property="id" column="id"/>
+                        <result property="refundOrderNo" column="refund_order_no"/>
+                        <result property="payOrderNo" column="pay_order_no"/>
+                        <result property="appShopId" column="app_shop_id"/>
+                        <result property="payMchId" column="pay_mch_id"/>
+                        <result property="mchOrderNo" column="mch_order_no"/>
+                        <result property="tradeOrderNo" column="trade_order_no"/>
+                        <result property="paymentModeCode" column="payment_mode_code"/>
+                        <result property="payChannelCode" column="pay_channel_code"/>
+                        <result property="payAmount" column="pay_amount"/>
+                        <result property="refundAmount" column="refund_amount"/>
+                        <result property="feeType" column="fee_type"/>
+                        <result property="state" column="state"/>
+                        <result property="refundResult" column="refund_result"/>
+                        <result property="clientIp" column="client_ip"/>
+                        <result property="remark" column="remark"/>
+                        <result property="errCode" column="err_code"/>
+                        <result property="errMsg" column="err_msg"/>
+                        <result property="notifyUrl" column="notify_url"/>
+                        <result property="refundSuccessTime" column="refund_success_time"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+            </resultMap>
+
+  <!--paymentRefundOrder简单分页查询-->
+  <select id="getPaymentRefundOrderPage" resultMap="paymentRefundOrderMap">
+    SELECT
+                  id,
+                        refund_order_no,
+                        pay_order_no,
+                        app_shop_id,
+                        pay_mch_id,
+                        mch_order_no,
+                        trade_order_no,
+                        payment_mode_code,
+                        pay_channel_code,
+                        pay_amount,
+                        refund_amount,
+                        fee_type,
+                        state,
+                        refund_result,
+                        client_ip,
+                        remark,
+                        err_code,
+                        err_msg,
+                        notify_url,
+                        refund_success_time,
+                        create_time,
+                        update_time
+              FROM payment_refund_order
+    <where>
+              <if test="paymentRefundOrder.id != null and paymentRefundOrder.id.trim() != ''">
+          AND id = #{paymentRefundOrder.id}
+        </if>
+              <if test="paymentRefundOrder.refundOrderNo != null and paymentRefundOrder.refundOrderNo.trim() != ''">
+          AND refund_order_no = #{paymentRefundOrder.refundOrderNo}
+        </if>
+              <if test="paymentRefundOrder.payOrderNo != null and paymentRefundOrder.payOrderNo.trim() != ''">
+          AND pay_order_no = #{paymentRefundOrder.payOrderNo}
+        </if>
+              <if test="paymentRefundOrder.appShopId != null and paymentRefundOrder.appShopId.trim() != ''">
+          AND app_shop_id = #{paymentRefundOrder.appShopId}
+        </if>
+              <if test="paymentRefundOrder.payMchId != null and paymentRefundOrder.payMchId.trim() != ''">
+          AND pay_mch_id = #{paymentRefundOrder.payMchId}
+        </if>
+              <if test="paymentRefundOrder.mchOrderNo != null and paymentRefundOrder.mchOrderNo.trim() != ''">
+          AND mch_order_no = #{paymentRefundOrder.mchOrderNo}
+        </if>
+              <if test="paymentRefundOrder.tradeOrderNo != null and paymentRefundOrder.tradeOrderNo.trim() != ''">
+          AND trade_order_no = #{paymentRefundOrder.tradeOrderNo}
+        </if>
+              <if test="paymentRefundOrder.paymentModeCode != null and paymentRefundOrder.paymentModeCode.trim() != ''">
+          AND payment_mode_code = #{paymentRefundOrder.paymentModeCode}
+        </if>
+              <if test="paymentRefundOrder.payChannelCode != null and paymentRefundOrder.payChannelCode.trim() != ''">
+          AND pay_channel_code = #{paymentRefundOrder.payChannelCode}
+        </if>
+              <if test="paymentRefundOrder.payAmount != null and paymentRefundOrder.payAmount.trim() != ''">
+          AND pay_amount = #{paymentRefundOrder.payAmount}
+        </if>
+              <if test="paymentRefundOrder.refundAmount != null and paymentRefundOrder.refundAmount.trim() != ''">
+          AND refund_amount = #{paymentRefundOrder.refundAmount}
+        </if>
+              <if test="paymentRefundOrder.feeType != null and paymentRefundOrder.feeType.trim() != ''">
+          AND fee_type = #{paymentRefundOrder.feeType}
+        </if>
+              <if test="paymentRefundOrder.state != null and paymentRefundOrder.state.trim() != ''">
+          AND state = #{paymentRefundOrder.state}
+        </if>
+              <if test="paymentRefundOrder.refundResult != null and paymentRefundOrder.refundResult.trim() != ''">
+          AND refund_result = #{paymentRefundOrder.refundResult}
+        </if>
+              <if test="paymentRefundOrder.clientIp != null and paymentRefundOrder.clientIp.trim() != ''">
+          AND client_ip = #{paymentRefundOrder.clientIp}
+        </if>
+              <if test="paymentRefundOrder.remark != null and paymentRefundOrder.remark.trim() != ''">
+          AND remark = #{paymentRefundOrder.remark}
+        </if>
+              <if test="paymentRefundOrder.errCode != null and paymentRefundOrder.errCode.trim() != ''">
+          AND err_code = #{paymentRefundOrder.errCode}
+        </if>
+              <if test="paymentRefundOrder.errMsg != null and paymentRefundOrder.errMsg.trim() != ''">
+          AND err_msg = #{paymentRefundOrder.errMsg}
+        </if>
+              <if test="paymentRefundOrder.notifyUrl != null and paymentRefundOrder.notifyUrl.trim() != ''">
+          AND notify_url = #{paymentRefundOrder.notifyUrl}
+        </if>
+              <if test="paymentRefundOrder.refundSuccessTime != null and paymentRefundOrder.refundSuccessTime.trim() != ''">
+          AND refund_success_time = #{paymentRefundOrder.refundSuccessTime}
+        </if>
+              <if test="paymentRefundOrder.createTime != null and paymentRefundOrder.createTime.trim() != ''">
+          AND create_time = #{paymentRefundOrder.createTime}
+        </if>
+              <if test="paymentRefundOrder.updateTime != null and paymentRefundOrder.updateTime.trim() != ''">
+          AND update_time = #{paymentRefundOrder.updateTime}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

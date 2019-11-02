@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.junfeng.platform.pc.api.feign.fallback.RemoteProductServiceFallbackImpl,\
+  com.junfeng.platform.pc.api.feign.factory.RemoteProductServiceFallbackFactory

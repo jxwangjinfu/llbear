@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://maven.apache.org/POM/4.0.0"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.pig4cloud</groupId>
+		<artifactId>operation-center</artifactId>
+		<version>2.4.0</version>
+	</parent>
+
+	<artifactId>operation-center-biz</artifactId>
+	<packaging>jar</packaging>
+	<version>0.0.1</version>
+
+	<description>运营中心模块</description>
+
+	<dependencies>
+		<!--消息总线 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-bus</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-stream-binder-rabbit</artifactId>
+		</dependency>
+
+		<!--swagger 配置-->
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>junfeng-common-swagger2</artifactId>
+			<version>0.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!--operation-center api、model 模块 -->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>operation-center-api</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!--安全模块 -->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>pig-common-security</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!--日志处理 -->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>pig-common-log</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!--配置中心客户端 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!--mybatis -->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+			<version>${mybatis-plus.version}</version>
+		</dependency>
+		<!--数据库 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+		<!--web 模块 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<exclusions>
+				<!--排除tomcat依赖 -->
+				<exclusion>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<!--undertow容器 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+
+		<!-- 定时任务 -->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>quartz-center-api</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+
+		<!-- 会员服务 -->
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>member-center-api</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+	</dependencies>
+
+	<!-- do not modify this docker build config, unless you know it! -->
+	<!-- === docker build copy BEGIN === -->
+	<properties>
+		<JunFengDockerImageName>operation-center</JunFengDockerImageName>
+		<JunFengDockerImageVersion>0.0.8</JunFengDockerImageVersion>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- docker的maven插件，官网 https://github.com/spotify/docker-maven-plugin -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>
+						192.168.199.12:50000/${JunFengDockerImageName}:${JunFengDockerImageVersion}
+					</imageName>
+					<baseImage>jre1.8:0.0.1</baseImage>
+					<workdir>/${project.build.finalName}</workdir>
+					<entryPoint>
+						["java", "-Djava.security.egd=file:/dev/./urandom", "-jar","/${project.build.finalName}/${project.build.finalName}.jar"]
+					</entryPoint>
+					<resources>
+						<resource>
+							<targetPath>/${project.build.finalName}</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+					<dockerHost>http://192.168.199.12:2375</dockerHost>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<!-- === docker build copy END === -->
+
+</project>

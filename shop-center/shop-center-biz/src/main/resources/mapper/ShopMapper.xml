@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.sc.mapper.ShopMapper">
+
+  <resultMap id="shopMap" type="com.junfeng.platform.sc.entity.Shop">
+                  <id property="id" column="id"/>
+                        <result property="clientId" column="client_id"/>
+                        <result property="shopName" column="shop_name"/>
+                        <result property="state" column="state"/>
+                        <result property="typeCode" column="type_code"/>
+                        <result property="provinceCode" column="province_code"/>
+                        <result property="cityCode" column="city_code"/>
+                        <result property="areaCode" column="area_code"/>
+                        <result property="address" column="address"/>
+                        <result property="longitude" column="longitude"/>
+                        <result property="latitude" column="latitude"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--shop简单分页查询-->
+  <select id="getShopPage" resultMap="shopMap">
+    SELECT
+                  id,
+                        client_id,
+                        shop_name,
+                        state,
+                        type_code,
+                        province_code,
+                        city_code,
+                        area_code,
+                        address,
+                        longitude,
+                        latitude,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM sc_shop
+    <where>
+              <if test="shop.id != null and shop.id.trim() != ''">
+          AND id = #{shop.id}
+        </if>
+              <if test="shop.clientId != null and shop.clientId.trim() != ''">
+          AND client_id = #{shop.clientId}
+        </if>
+              <if test="shop.shopName != null and shop.shopName.trim() != ''">
+          AND shop_name = #{shop.shopName}
+        </if>
+              <if test="shop.state != null and shop.state.trim() != ''">
+          AND state = #{shop.state}
+        </if>
+              <if test="shop.typeCode != null and shop.typeCode.trim() != ''">
+          AND type_code = #{shop.typeCode}
+        </if>
+              <if test="shop.provinceCode != null and shop.provinceCode.trim() != ''">
+          AND province_code = #{shop.provinceCode}
+        </if>
+              <if test="shop.cityCode != null and shop.cityCode.trim() != ''">
+          AND city_code = #{shop.cityCode}
+        </if>
+              <if test="shop.areaCode != null and shop.areaCode.trim() != ''">
+          AND area_code = #{shop.areaCode}
+        </if>
+              <if test="shop.address != null and shop.address.trim() != ''">
+          AND address = #{shop.address}
+        </if>
+              <if test="shop.longitude != null and shop.longitude.trim() != ''">
+          AND longitude = #{shop.longitude}
+        </if>
+              <if test="shop.latitude != null and shop.latitude.trim() != ''">
+          AND latitude = #{shop.latitude}
+        </if>
+              <if test="shop.delFlag != null and shop.delFlag.trim() != ''">
+          AND del_flag = #{shop.delFlag}
+        </if>
+              <if test="shop.createTime != null and shop.createTime.trim() != ''">
+          AND create_time = #{shop.createTime}
+        </if>
+              <if test="shop.createBy != null and shop.createBy.trim() != ''">
+          AND create_by = #{shop.createBy}
+        </if>
+              <if test="shop.updateTime != null and shop.updateTime.trim() != ''">
+          AND update_time = #{shop.updateTime}
+        </if>
+              <if test="shop.updateBy != null and shop.updateBy.trim() != ''">
+          AND update_by = #{shop.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

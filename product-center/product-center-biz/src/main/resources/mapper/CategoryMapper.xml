@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.CategoryMapper">
+
+  <resultMap id="categoryMap" type="com.junfeng.platform.pc.api.entity.Category">
+                  <id property="id" column="id"/>
+                        <result property="name" column="name"/>
+                        <result property="parentId" column="parent_id"/>
+                        <result property="isParent" column="is_parent"/>
+                        <result property="sort" column="sort"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--category简单分页查询-->
+  <select id="getCategoryPage" resultMap="categoryMap">
+    SELECT
+                  id,
+                        name,
+                        parent_id,
+                        is_parent,
+                        sort,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM pc_category
+    <where>
+              <if test="category.id != null and category.id.trim() != ''">
+          AND id = #{category.id}
+        </if>
+              <if test="category.name != null and category.name.trim() != ''">
+          AND name = #{category.name}
+        </if>
+              <if test="category.parentId != null and category.parentId.trim() != ''">
+          AND parent_id = #{category.parentId}
+        </if>
+              <if test="category.isParent != null and category.isParent.trim() != ''">
+          AND is_parent = #{category.isParent}
+        </if>
+              <if test="category.sort != null and category.sort.trim() != ''">
+          AND sort = #{category.sort}
+        </if>
+              <if test="category.delFlag != null and category.delFlag.trim() != ''">
+          AND del_flag = #{category.delFlag}
+        </if>
+              <if test="category.createTime != null and category.createTime.trim() != ''">
+          AND create_time = #{category.createTime}
+        </if>
+              <if test="category.createBy != null and category.createBy.trim() != ''">
+          AND create_by = #{category.createBy}
+        </if>
+              <if test="category.updateTime != null and category.updateTime.trim() != ''">
+          AND update_time = #{category.updateTime}
+        </if>
+              <if test="category.updateBy != null and category.updateBy.trim() != ''">
+          AND update_by = #{category.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

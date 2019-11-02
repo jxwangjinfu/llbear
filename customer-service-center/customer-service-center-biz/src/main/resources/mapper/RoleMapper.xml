@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.csc.mapper.RoleMapper">
+
+  <resultMap id="roleMap" type="com.junfeng.platform.csc.entity.Role">
+                  <id property="id" column="id"/>
+                        <result property="roleName" column="role_name"/>
+            </resultMap>
+
+  <!--role简单分页查询-->
+  <select id="getRolePage" resultMap="roleMap">
+    SELECT
+                  id,
+                        role_name
+              FROM csc_role
+    <where>
+              <if test="role.id != null and role.id.trim() != ''">
+          AND id = #{role.id}
+        </if>
+              <if test="role.roleName != null and role.roleName.trim() != ''">
+          AND role_name = #{role.roleName}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.sc.mapper.ShopTypeMapper">
+
+  <resultMap id="shopTypeMap" type="com.junfeng.platform.sc.entity.ShopType">
+                  <id property="id" column="id"/>
+                        <result property="name" column="name"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--shopType简单分页查询-->
+  <select id="getShopTypePage" resultMap="shopTypeMap">
+    SELECT
+                  id,
+                        name,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM sc_shop_type
+    <where>
+              <if test="shopType.id != null and shopType.id.trim() != ''">
+          AND id = #{shopType.id}
+        </if>
+              <if test="shopType.name != null and shopType.name.trim() != ''">
+          AND name = #{shopType.name}
+        </if>
+              <if test="shopType.delFlag != null and shopType.delFlag.trim() != ''">
+          AND del_flag = #{shopType.delFlag}
+        </if>
+              <if test="shopType.createTime != null and shopType.createTime.trim() != ''">
+          AND create_time = #{shopType.createTime}
+        </if>
+              <if test="shopType.createBy != null and shopType.createBy.trim() != ''">
+          AND create_by = #{shopType.createBy}
+        </if>
+              <if test="shopType.updateTime != null and shopType.updateTime.trim() != ''">
+          AND update_time = #{shopType.updateTime}
+        </if>
+              <if test="shopType.updateBy != null and shopType.updateBy.trim() != ''">
+          AND update_by = #{shopType.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

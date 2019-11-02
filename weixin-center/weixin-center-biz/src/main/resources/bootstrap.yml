@@ -1,0 +1,48 @@
+server:
+  port: 1000
+
+spring:
+  application:
+    name: weixin-center
+  # 配置中心
+  cloud:
+    config:
+      fail-fast: true
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: pig-config
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+
+# 注册中心配置
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://pig:pig@pig-eureka:8761/eureka/
+wx:
+  mp:
+    configs:
+      - appid: wxf2a8098c6e7e3df7 # junhe
+        secret: f703f6e1a2a13428e19d245003f2eb98
+        token: junfengtech
+        aesKey: kjgoifdajgdfajoijgiofdgioadjfiofjdsfgasd238
+        msgDataFormat: JSON
+  miniapp:
+    configs:
+      - appId: wxf59a0fef55a4687d # 和我购01
+        secret: dfa0b887984c3878b0ed2786af92305b
+        token: junfeng
+        aesKey:
+  open:
+    configs:
+      - componentAppId: wxd9e0ea9e665ff3b8 # 测试环境开发平台
+        secret: d2cf9b3e5071e70cc4471102aa832c25
+        token: junfengtech
+        aesKey: kjgoifdajgdfajoijgiofdgioadjfiofjdsfgasd238
+        appId: wx42ff036d1162b0aa

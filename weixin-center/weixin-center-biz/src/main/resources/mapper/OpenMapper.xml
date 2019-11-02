@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.wc.mapper.OpenMapper">
+
+  <resultMap id="openMap" type="com.junfeng.wc.entity.Open">
+                  <id property="id" column="id"/>
+                        <result property="name" column="name"/>
+                        <result property="componentToken" column="component_token"/>
+                        <result property="componentAesKey" column="component_aes_key"/>
+                        <result property="componentAppId" column="component_app_id"/>
+                        <result property="componentSecret" column="component_secret"/>
+                        <result property="authorizerAppId" column="authorizer_app_id"/>
+                        <result property="authorizerName" column="authorizer_name"/>
+            </resultMap>
+
+  <!--open简单分页查询-->
+  <select id="getOpenPage" resultMap="openMap">
+    SELECT
+                  id,
+                        name,
+                        component_token,
+                        component_aes_key,
+                        component_app_id,
+                        component_secret,
+                        authorizer_app_id,
+                        authorizer_name
+              FROM wx_open
+    <where>
+              <if test="open.id != null and open.id.trim() != ''">
+          AND id = #{open.id}
+        </if>
+              <if test="open.name != null and open.name.trim() != ''">
+          AND name = #{open.name}
+        </if>
+              <if test="open.componentToken != null and open.componentToken.trim() != ''">
+          AND component_token = #{open.componentToken}
+        </if>
+              <if test="open.componentAesKey != null and open.componentAesKey.trim() != ''">
+          AND component_aes_key = #{open.componentAesKey}
+        </if>
+              <if test="open.componentAppId != null and open.componentAppId.trim() != ''">
+          AND component_app_id = #{open.componentAppId}
+        </if>
+              <if test="open.componentSecret != null and open.componentSecret.trim() != ''">
+          AND component_secret = #{open.componentSecret}
+        </if>
+              <if test="open.authorizerAppId != null and open.authorizerAppId.trim() != ''">
+          AND authorizer_app_id = #{open.authorizerAppId}
+        </if>
+              <if test="open.authorizerName != null and open.authorizerName.trim() != ''">
+          AND authorizer_name = #{open.authorizerName}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

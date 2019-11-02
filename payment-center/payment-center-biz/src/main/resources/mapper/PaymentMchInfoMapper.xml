@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.payment.mapper.PaymentMchInfoMapper">
+
+  <resultMap id="paymentMchInfoMap" type="com.junfeng.platform.payment.api.entity.PaymentMchInfo">
+                  <id property="id" column="id"/>
+                        <result property="name" column="name"/>
+                        <result property="appShopId" column="app_shop_id"/>
+                        <result property="state" column="state"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="userName" column="user_name"/>
+                        <result property="phone" column="phone"/>
+                        <result property="bankCard" column="bank_card"/>
+                        <result property="identityCard" column="identity_card"/>
+                        <result property="businessLicense" column="business_license"/>
+                        <result property="identityCardFrontImgUri" column="identity_card_front_img_uri"/>
+                        <result property="identityCardBackImgUri" column="identity_card_back_img_uri"/>
+                        <result property="businessLicenseImgUri" column="business_license_img_uri"/>
+            </resultMap>
+
+  <!--paymentMchInfo简单分页查询-->
+  <select id="getPaymentMchInfoPage" resultMap="paymentMchInfoMap">
+    SELECT
+                  id,
+                        name,
+                        app_shop_id,
+                        state,
+                        create_time,
+                        update_time,
+                        user_name,
+                        phone,
+                        bank_card,
+                        identity_card,
+                        business_license,
+                        identity_card_front_img_uri,
+                        identity_card_back_img_uri,
+                        business_license_img_uri
+              FROM payment_mch_info
+    <where>
+              <if test="paymentMchInfo.id != null and paymentMchInfo.id.trim() != ''">
+          AND id = #{paymentMchInfo.id}
+        </if>
+              <if test="paymentMchInfo.name != null and paymentMchInfo.name.trim() != ''">
+          AND name = #{paymentMchInfo.name}
+        </if>
+              <if test="paymentMchInfo.appShopId != null and paymentMchInfo.appShopId.trim() != ''">
+          AND app_shop_id = #{paymentMchInfo.appShopId}
+        </if>
+              <if test="paymentMchInfo.state != null and paymentMchInfo.state.trim() != ''">
+          AND state = #{paymentMchInfo.state}
+        </if>
+              <if test="paymentMchInfo.createTime != null and paymentMchInfo.createTime.trim() != ''">
+          AND create_time = #{paymentMchInfo.createTime}
+        </if>
+              <if test="paymentMchInfo.updateTime != null and paymentMchInfo.updateTime.trim() != ''">
+          AND update_time = #{paymentMchInfo.updateTime}
+        </if>
+              <if test="paymentMchInfo.userName != null and paymentMchInfo.userName.trim() != ''">
+          AND user_name = #{paymentMchInfo.userName}
+        </if>
+              <if test="paymentMchInfo.phone != null and paymentMchInfo.phone.trim() != ''">
+          AND phone = #{paymentMchInfo.phone}
+        </if>
+              <if test="paymentMchInfo.bankCard != null and paymentMchInfo.bankCard.trim() != ''">
+          AND bank_card = #{paymentMchInfo.bankCard}
+        </if>
+              <if test="paymentMchInfo.identityCard != null and paymentMchInfo.identityCard.trim() != ''">
+          AND identity_card = #{paymentMchInfo.identityCard}
+        </if>
+              <if test="paymentMchInfo.businessLicense != null and paymentMchInfo.businessLicense.trim() != ''">
+          AND business_license = #{paymentMchInfo.businessLicense}
+        </if>
+              <if test="paymentMchInfo.identityCardFrontImgUri != null and paymentMchInfo.identityCardFrontImgUri.trim() != ''">
+          AND identity_card_front_img_uri = #{paymentMchInfo.identityCardFrontImgUri}
+        </if>
+              <if test="paymentMchInfo.identityCardBackImgUri != null and paymentMchInfo.identityCardBackImgUri.trim() != ''">
+          AND identity_card_back_img_uri = #{paymentMchInfo.identityCardBackImgUri}
+        </if>
+              <if test="paymentMchInfo.businessLicenseImgUri != null and paymentMchInfo.businessLicenseImgUri.trim() != ''">
+          AND business_license_img_uri = #{paymentMchInfo.businessLicenseImgUri}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.csc.mapper.WorkOrderMapper">
+
+  <resultMap id="workOrderMap" type="com.junfeng.platform.csc.entity.WorkOrder">
+                  <id property="id" column="id"/>
+                        <result property="title" column="title"/>
+                        <result property="content" column="content"/>
+                        <result property="state" column="state"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--workOrder简单分页查询-->
+  <select id="getWorkOrderPage" resultMap="workOrderMap">
+    SELECT
+                  id,
+                        title,
+                        content,
+                        state,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM csc_work_order
+    <where>
+              <if test="workOrder.id != null and workOrder.id.trim() != ''">
+          AND id = #{workOrder.id}
+        </if>
+              <if test="workOrder.title != null and workOrder.title.trim() != ''">
+          AND title = #{workOrder.title}
+        </if>
+              <if test="workOrder.content != null and workOrder.content.trim() != ''">
+          AND content = #{workOrder.content}
+        </if>
+              <if test="workOrder.state != null and workOrder.state.trim() != ''">
+          AND state = #{workOrder.state}
+        </if>
+              <if test="workOrder.delFlag != null and workOrder.delFlag.trim() != ''">
+          AND del_flag = #{workOrder.delFlag}
+        </if>
+              <if test="workOrder.createTime != null and workOrder.createTime.trim() != ''">
+          AND create_time = #{workOrder.createTime}
+        </if>
+              <if test="workOrder.createBy != null and workOrder.createBy.trim() != ''">
+          AND create_by = #{workOrder.createBy}
+        </if>
+              <if test="workOrder.updateTime != null and workOrder.updateTime.trim() != ''">
+          AND update_time = #{workOrder.updateTime}
+        </if>
+              <if test="workOrder.updateBy != null and workOrder.updateBy.trim() != ''">
+          AND update_by = #{workOrder.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

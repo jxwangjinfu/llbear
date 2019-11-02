@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.csc.mapper.PhoneRecordMapper">
+
+  <resultMap id="phoneRecordMap" type="com.junfeng.platform.csc.entity.PhoneRecord">
+                  <id property="id" column="id"/>
+                        <result property="userCode" column="user_code"/>
+                        <result property="phoneCode" column="phone_code"/>
+                        <result property="phoneType" column="phone_type"/>
+                        <result property="createTime" column="create_time"/>
+            </resultMap>
+
+  <!--phoneRecord简单分页查询-->
+  <select id="getPhoneRecordPage" resultMap="phoneRecordMap">
+    SELECT
+                  id,
+                        user_code,
+                        phone_code,
+                        phone_type,
+                        create_time
+              FROM csc_phone_record
+    <where>
+              <if test="phoneRecord.id != null and phoneRecord.id.trim() != ''">
+          AND id = #{phoneRecord.id}
+        </if>
+              <if test="phoneRecord.userCode != null and phoneRecord.userCode.trim() != ''">
+          AND user_code = #{phoneRecord.userCode}
+        </if>
+              <if test="phoneRecord.phoneCode != null and phoneRecord.phoneCode.trim() != ''">
+          AND phone_code = #{phoneRecord.phoneCode}
+        </if>
+              <if test="phoneRecord.phoneType != null and phoneRecord.phoneType.trim() != ''">
+          AND phone_type = #{phoneRecord.phoneType}
+        </if>
+              <if test="phoneRecord.createTime != null and phoneRecord.createTime.trim() != ''">
+          AND create_time = #{phoneRecord.createTime}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

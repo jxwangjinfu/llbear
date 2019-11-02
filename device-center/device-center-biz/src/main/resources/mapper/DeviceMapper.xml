@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.dc.mapper.DeviceMapper">
+
+	<resultMap id="deviceMap" type="com.junfeng.platform.dc.entity.Device">
+		<id property="id" column="id"/>
+		<result property="devCode" column="dev_code"/>
+		<result property="manufacturer" column="manufacturer"/>
+		<result property="model" column="model"/>
+		<result property="mac" column="mac"/>
+		<result property="otherPropertyJson" column="other_property_json"/>
+		<result property="state" column="state"/>
+		<result property="deviceTypeCode" column="device_type_code"/>
+		<result property="devName" column="dev_name"/>
+		<result property="remark" column="remark"/>
+		<result property="deptId" column="dept_id"/>
+		<result property="sourceFrom" column="source_from"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="lanIp" column="lan_Ip"/>
+		<result property="isOnline" column="is_online"/>
+		<result property="lastOnlineTime" column="last_online_time"/>
+		<result property="currentVersionCode" column="current_version_code"/>
+		<result property="patchVersionCode" column="patch_version_code"/>
+		<result property="currentVersionName" column="current_version_name"/>
+		<result property="platform" column="platform"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--device简单分页查询-->
+	<select id="getDevicePage" resultMap="deviceMap">
+		SELECT
+		id,
+		dev_code,
+		manufacturer,
+		model,
+		mac,
+		other_property_json,
+		state,
+		device_type_code,
+		dev_name,
+		remark,
+		dept_id,
+		source_from,
+		create_time,
+		create_by,
+		update_time,
+		update_by,
+		lan_Ip,
+		is_online,
+		last_online_time,
+		current_version_code,
+		patch_version_code,
+		current_version_name,
+		platform,
+		del_flag
+		FROM dc_device
+		<where>
+			<if test="device.id != null">
+				AND id = #{device.id}
+			</if>
+			<if test="device.devCode != null and device.devCode.trim() != ''">
+				AND dev_code = #{device.devCode}
+			</if>
+			<if test="device.manufacturer != null and device.manufacturer.trim() != ''">
+				AND manufacturer = #{device.manufacturer}
+			</if>
+			<if test="device.model != null and device.model.trim() != ''">
+				AND model = #{device.model}
+			</if>
+			<if test="device.mac != null and device.mac.trim() != ''">
+				AND mac = #{device.mac}
+			</if>
+			<if test="device.otherPropertyJson != null and device.otherPropertyJson.trim() != ''">
+				AND other_property_json = #{device.otherPropertyJson}
+			</if>
+			<if test="device.state != null and device.state.trim() != ''">
+				AND state = #{device.state}
+			</if>
+			<if test="device.deviceTypeCode != null and device.deviceTypeCode.trim() != ''">
+				AND device_type_code = #{device.deviceTypeCode}
+			</if>
+			<if test="device.devName != null and device.devName.trim() != ''">
+				AND dev_name = #{device.devName}
+			</if>
+			<if test="device.remark != null and device.remark.trim() != ''">
+				AND remark = #{device.remark}
+			</if>
+			<if test="device.deptId != null">
+				AND dept_id = #{device.deptId}
+			</if>
+			<if test="device.sourceFrom != null and device.sourceFrom.trim() != ''">
+				AND source_from = #{device.sourceFrom}
+			</if>
+			<if test="device.createTime != null">
+				AND create_time = #{device.createTime}
+			</if>
+			<if test="device.createBy != null and device.createBy.trim() != ''">
+				AND create_by = #{device.createBy}
+			</if>
+			<if test="device.updateTime != null">
+				AND update_time = #{device.updateTime}
+			</if>
+			<if test="device.updateBy != null and device.updateBy.trim() != ''">
+				AND update_by = #{device.updateBy}
+			</if>
+			<if test="device.lanIp != null and device.lanIp.trim() != ''">
+				AND lan_Ip = #{device.lanIp}
+			</if>
+			<if test="device.isOnline != null and device.isOnline.trim() != ''">
+				AND is_online = #{device.isOnline}
+			</if>
+			<if test="device.lastOnlineTime != null">
+				AND last_online_time = #{device.lastOnlineTime}
+			</if>
+			<if test="device.currentVersionCode != null">
+				AND current_version_code = #{device.currentVersionCode}
+			</if>
+			<if test="device.patchVersionCode != null">
+				AND patch_version_code = #{device.patchVersionCode}
+			</if>
+			<if test="device.currentVersionName != null and device.currentVersionName.trim() != ''">
+				AND current_version_name = #{device.currentVersionName}
+			</if>
+			<if test="device.platform != null and device.platform.trim() != ''">
+				AND platform = #{device.platform}
+			</if>
+			<!-- 不显示逻辑删除的记录
+			<if test="device.delFlag != null and device.delFlag.trim() != ''">
+				AND del_flag = #{device.delFlag}
+			</if>
+			-->
+			AND del_flag = '0'
+		</where>
+	</select>
+
+	<!--按设备及其部署信息分页查询-->
+	<select id="getDevicePageByDeployInfo" resultType="com.junfeng.platform.dc.api.result.DeviceResult">
+		SELECT
+		d.*
+		FROM dc_device d
+		INNER JOIN dc_device_deploy_info p ON d.id = p.device_id
+		<where>
+			<if test="deviceDeployVo.deviceTypeCode != null and deviceDeployVo.deviceTypeCode.trim() != ''">
+				AND d.device_type_code = #{deviceDeployVo.deviceTypeCode}
+			</if>
+			<if test="deviceDeployVo.manufacturer != null and deviceDeployVo.manufacturer.trim() != ''">
+				AND d.manufacturer = #{deviceDeployVo.manufacturer}
+			</if>
+			<if test="deviceDeployVo.beginTime != null">
+				AND d.update_time >= #{deviceDeployVo.beginTime}
+			</if>
+			<if test="deviceDeployVo.endTime != null">
+				AND #{deviceDeployVo.endTime} >= d.update_time
+			</if>
+			AND d.del_flag = '0'
+
+			<if test="deviceDeployVo.deployArea != null and deviceDeployVo.deployArea.trim() != ''">
+				AND p.deploy_area = #{deviceDeployVo.deployArea}
+			</if>
+			<if test="deviceDeployVo.useDepartment != null and deviceDeployVo.useDepartment.trim() != ''">
+				AND p.use_department = #{deviceDeployVo.useDepartment}
+			</if>
+			<if test="deviceDeployVo.sn != null and deviceDeployVo.sn.trim() != ''">
+				AND p.sn = #{deviceDeployVo.sn}
+			</if>
+			AND p.del_flag = '0'
+		</where>
+		ORDER BY d.update_time DESC
+	</select>
+
+	<!--按设备及其部署信息查询-->
+	<select id="getDeviceListByDeployInfo" resultType="com.junfeng.platform.dc.entity.Device">
+		SELECT
+		d.*
+		FROM dc_device d
+		INNER JOIN dc_device_deploy_info p ON d.id = p.device_id
+		<where>
+			<if test="deviceDeployVo.deviceTypeCode != null and deviceDeployVo.deviceTypeCode.trim() != ''">
+				AND d.device_type_code = #{deviceDeployVo.deviceTypeCode}
+			</if>
+			<if test="deviceDeployVo.manufacturer != null and deviceDeployVo.manufacturer.trim() != ''">
+				AND d.manufacturer = #{deviceDeployVo.manufacturer}
+			</if>
+			<if test="deviceDeployVo.beginTime != null">
+				AND d.update_time >= #{deviceDeployVo.beginTime}
+			</if>
+			<if test="deviceDeployVo.endTime != null">
+				AND #{deviceDeployVo.endTime} >= d.update_time
+			</if>
+			AND d.del_flag = '0'
+
+			<if test="deviceDeployVo.deployArea != null and deviceDeployVo.deployArea.trim() != ''">
+				AND p.deploy_area = #{deviceDeployVo.deployArea}
+			</if>
+			<if test="deviceDeployVo.useDepartment != null and deviceDeployVo.useDepartment.trim() != ''">
+				AND p.use_department = #{deviceDeployVo.useDepartment}
+			</if>
+			<if test="deviceDeployVo.sn != null and deviceDeployVo.sn.trim() != ''">
+				AND p.sn = #{deviceDeployVo.sn}
+			</if>
+			AND p.del_flag = '0'
+		</where>
+		ORDER BY d.update_time DESC
+	</select>
+
+	<select id="getNonAdIdListByDeviceType" resultType="java.lang.Long">
+		SELECT id FROM dc_device WHERE device_type_code=#{devTypeCode} AND del_flag=0 AND id NOT IN(SELECT device_id FROM dc_device_advertisement WHERE del_flag=0);
+	</select>
+
+	<select id="getNonConfigIdListByDeviceType" resultType="java.lang.Long">
+		SELECT id FROM dc_device WHERE device_type_code=#{devTypeCode} AND del_flag=0 AND id NOT IN(SELECT device_id FROM dc_device_config WHERE del_flag=0);
+	</select>
+
+</mapper>

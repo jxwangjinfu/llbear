@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.dc.mapper.DeviceAppVersionMapper">
+
+	<resultMap id="deviceAppVersionMap" type="com.junfeng.platform.dc.entity.DeviceAppVersion">
+		<id property="id" column="id"/>
+		<result property="deviceTypeCode" column="device_type_code"/>
+		<result property="versionName" column="version_name"/>
+		<result property="versionCode" column="version_code"/>
+		<result property="fileName" column="file_name"/>
+		<result property="downloadUrl" column="download_url"/>
+		<result property="remark" column="remark"/>
+		<result property="createTime" column="create_time"/>
+		<result property="state" column="state"/>
+		<result property="platform" column="platform"/>
+		<result property="publishTime" column="publish_time"/>
+		<result property="forceUpdate" column="force_update"/>
+		<result property="lastForceUpdateVersionCode" column="last_force_update_version_code"/>
+		<result property="md5" column="md5"/>
+		<result property="patchVersionCode" column="patch_version_code"/>
+		<result property="patchDownloadUrl" column="patch_download_url"/>
+		<result property="patchMd5" column="patch_md5"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--deviceAppVersion简单分页查询-->
+	<select id="getDeviceAppVersionPage" resultMap="deviceAppVersionMap">
+		SELECT
+		id,
+		device_type_code,
+		version_name,
+		version_code,
+		file_name,
+		download_url,
+		remark,
+		create_time,
+		state,
+		platform,
+		publish_time,
+		force_update,
+		last_force_update_version_code,
+		md5,
+		patch_version_code,
+		patch_download_url,
+		patch_md5,
+		update_time,
+		create_by,
+		update_by,
+		del_flag
+		FROM dc_device_app_version
+		<where>
+			<if test="deviceAppVersion.id != null">
+				AND id = #{deviceAppVersion.id}
+			</if>
+			<if test="deviceAppVersion.deviceTypeCode != null and deviceAppVersion.deviceTypeCode.trim() != ''">
+				AND device_type_code = #{deviceAppVersion.deviceTypeCode}
+			</if>
+			<if test="deviceAppVersion.versionName != null and deviceAppVersion.versionName.trim() != ''">
+				AND version_name = #{deviceAppVersion.versionName}
+			</if>
+			<if test="deviceAppVersion.versionCode != null and deviceAppVersion.versionCode.trim() != ''">
+				AND version_code = #{deviceAppVersion.versionCode}
+			</if>
+			<if test="deviceAppVersion.fileName != null and deviceAppVersion.fileName.trim() != ''">
+				AND file_name = #{deviceAppVersion.fileName}
+			</if>
+			<if test="deviceAppVersion.downloadUrl != null and deviceAppVersion.downloadUrl.trim() != ''">
+				AND download_url = #{deviceAppVersion.downloadUrl}
+			</if>
+			<if test="deviceAppVersion.remark != null and deviceAppVersion.remark.trim() != ''">
+				AND remark = #{deviceAppVersion.remark}
+			</if>
+			<if test="deviceAppVersion.createTime != null">
+				AND create_time = #{deviceAppVersion.createTime}
+			</if>
+			<if test="deviceAppVersion.state != null">
+				AND state = #{deviceAppVersion.state}
+			</if>
+			<if test="deviceAppVersion.platform != null and deviceAppVersion.platform.trim() != ''">
+				AND platform = #{deviceAppVersion.platform}
+			</if>
+			<if test="deviceAppVersion.publishTime != null">
+				AND publish_time = #{deviceAppVersion.publishTime}
+			</if>
+			<if test="deviceAppVersion.forceUpdate != null">
+				AND force_update = #{deviceAppVersion.forceUpdate}
+			</if>
+			<if test="deviceAppVersion.lastForceUpdateVersionCode != null">
+				AND last_force_update_version_code = #{deviceAppVersion.lastForceUpdateVersionCode}
+			</if>
+			<if test="deviceAppVersion.md5 != null and deviceAppVersion.md5.trim() != ''">
+				AND md5 = #{deviceAppVersion.md5}
+			</if>
+			<if test="deviceAppVersion.patchVersionCode != null">
+				AND patch_version_code = #{deviceAppVersion.patchVersionCode}
+			</if>
+			<if test="deviceAppVersion.patchDownloadUrl != null and deviceAppVersion.patchDownloadUrl.trim() != ''">
+				AND patch_download_url = #{deviceAppVersion.patchDownloadUrl}
+			</if>
+			<if test="deviceAppVersion.patchMd5 != null and deviceAppVersion.patchMd5.trim() != ''">
+				AND patch_md5 = #{deviceAppVersion.patchMd5}
+			</if>
+			<if test="deviceAppVersion.updateTime != null">
+				AND update_time = #{deviceAppVersion.updateTime}
+			</if>
+			<if test="deviceAppVersion.createBy != null and deviceAppVersion.createBy.trim() != ''">
+				AND create_by = #{deviceAppVersion.createBy}
+			</if>
+			<if test="deviceAppVersion.updateBy != null and deviceAppVersion.updateBy.trim() != ''">
+				AND update_by = #{deviceAppVersion.updateBy}
+			</if>
+			<!-- 不显示逻辑删除的记录
+			<if test="deviceAppVersion.delFlag != null and deviceAppVersion.delFlag.trim() != ''">
+				AND del_flag = #{deviceAppVersion.delFlag}
+			</if>
+			-->
+			AND del_flag = '0'
+		</where>
+	</select>
+
+
+</mapper>

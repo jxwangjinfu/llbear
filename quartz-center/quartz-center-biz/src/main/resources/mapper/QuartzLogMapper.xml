@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.qc.mapper.QuartzLogMapper">
+
+  <resultMap id="quartzLogMap" type="com.junfeng.platform.qc.entity.QuartzLog">
+                  <id property="id" column="id"/>
+                        <result property="type" column="type"/>
+                        <result property="jobName" column="job_name"/>
+                        <result property="jobGroup" column="job_group"/>
+                        <result property="className" column="class_name"/>
+                        <result property="cronExpression" column="cron_expression"/>
+                        <result property="executeLog" column="execute_log"/>
+                        <result property="executeStatus" column="execute_status"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="params" column="params"/>
+                        <result property="startTime" column="start_time"/>
+                        <result property="executeTime" column="execute_time"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="exceptionLog" column="exception_log"/>
+            </resultMap>
+
+  <!--quartzLog简单分页查询-->
+  <select id="getQuartzLogPage" resultMap="quartzLogMap">
+    SELECT
+                  id,
+                        type,
+                        job_name,
+                        job_group,
+                        class_name,
+                        cron_expression,
+                        execute_log,
+                        execute_status,
+                        create_by,
+                        create_time,
+                        update_time,
+                        params,
+                        start_time,
+                        execute_time,
+                        del_flag,
+                        exception_log
+              FROM quartz_log
+    <where>
+              <if test="quartzLog.id != null and quartzLog.id.trim() != ''">
+          AND id = #{quartzLog.id}
+        </if>
+              <if test="quartzLog.type != null and quartzLog.type.trim() != ''">
+          AND type = #{quartzLog.type}
+        </if>
+              <if test="quartzLog.jobName != null and quartzLog.jobName.trim() != ''">
+          AND job_name = #{quartzLog.jobName}
+        </if>
+              <if test="quartzLog.jobGroup != null and quartzLog.jobGroup.trim() != ''">
+          AND job_group = #{quartzLog.jobGroup}
+        </if>
+              <if test="quartzLog.className != null and quartzLog.className.trim() != ''">
+          AND class_name = #{quartzLog.className}
+        </if>
+              <if test="quartzLog.cronExpression != null and quartzLog.cronExpression.trim() != ''">
+          AND cron_expression = #{quartzLog.cronExpression}
+        </if>
+              <if test="quartzLog.executeLog != null and quartzLog.executeLog.trim() != ''">
+          AND execute_log = #{quartzLog.executeLog}
+        </if>
+              <if test="quartzLog.executeStatus != null and quartzLog.executeStatus.trim() != ''">
+          AND execute_status = #{quartzLog.executeStatus}
+        </if>
+              <if test="quartzLog.createBy != null and quartzLog.createBy.trim() != ''">
+          AND create_by = #{quartzLog.createBy}
+        </if>
+              <if test="quartzLog.createTime != null and quartzLog.createTime.trim() != ''">
+          AND create_time = #{quartzLog.createTime}
+        </if>
+              <if test="quartzLog.updateTime != null and quartzLog.updateTime.trim() != ''">
+          AND update_time = #{quartzLog.updateTime}
+        </if>
+              <if test="quartzLog.params != null and quartzLog.params.trim() != ''">
+          AND params = #{quartzLog.params}
+        </if>
+              <if test="quartzLog.startTime != null and quartzLog.startTime.trim() != ''">
+          AND start_time = #{quartzLog.startTime}
+        </if>
+              <if test="quartzLog.executeTime != null and quartzLog.executeTime.trim() != ''">
+          AND execute_time = #{quartzLog.executeTime}
+        </if>
+              <if test="quartzLog.delFlag != null and quartzLog.delFlag.trim() != ''">
+          AND del_flag = #{quartzLog.delFlag}
+        </if>
+              <if test="quartzLog.exceptionLog != null and quartzLog.exceptionLog.trim() != ''">
+          AND exception_log = #{quartzLog.exceptionLog}
+        </if>
+          </where>
+          
+        order by create_time desc
+  </select>
+
+
+
+</mapper>

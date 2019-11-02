@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.payment.mapper.PaymentOrderResponseRecordMapper">
+
+  <resultMap id="paymentOrderResponseRecordMap" type="com.junfeng.platform.payment.api.entity.PaymentOrderResponseRecord">
+                  <id property="id" column="id"/>
+                        <result property="payOrderNo" column="pay_order_no"/>
+                        <result property="tradeOrderNo" column="trade_order_no"/>
+                        <result property="paymentModeCode" column="payment_mode_code"/>
+                        <result property="amount" column="amount"/>
+                        <result property="bankType" column="bankType"/>
+                        <result property="feeType" column="fee_type"/>
+                        <result property="payChannelAccount" column="pay_channel_account"/>
+                        <result property="openId" column="openId"/>
+                        <result property="attach" column="attach"/>
+                        <result property="paySuccessTime" column="pay_success_time"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="updateTime" column="update_time"/>
+            </resultMap>
+
+  <!--paymentOrderResponseRecord简单分页查询-->
+  <select id="getPaymentOrderResponseRecordPage" resultMap="paymentOrderResponseRecordMap">
+    SELECT
+                  id,
+                        pay_order_no,
+                        trade_order_no,
+                        payment_mode_code,
+                        amount,
+                        bank_type,
+                        fee_type,
+                        pay_channel_account,
+                        open_id,
+                        attach,
+                        pay_success_time,
+                        create_time,
+                        update_time
+              FROM payment_order_response_record
+    <where>
+              <if test="paymentOrderResponseRecord.id != null and paymentOrderResponseRecord.id.trim() != ''">
+          AND id = #{paymentOrderResponseRecord.id}
+        </if>
+              <if test="paymentOrderResponseRecord.payOrderNo != null and paymentOrderResponseRecord.payOrderNo.trim() != ''">
+          AND pay_order_no = #{paymentOrderResponseRecord.payOrderNo}
+        </if>
+              <if test="paymentOrderResponseRecord.tradeOrderNo != null and paymentOrderResponseRecord.tradeOrderNo.trim() != ''">
+          AND trade_order_no = #{paymentOrderResponseRecord.tradeOrderNo}
+        </if>
+              <if test="paymentOrderResponseRecord.paymentModeCode != null and paymentOrderResponseRecord.paymentModeCode.trim() != ''">
+          AND payment_mode_code = #{paymentOrderResponseRecord.paymentModeCode}
+        </if>
+              <if test="paymentOrderResponseRecord.amount != null and paymentOrderResponseRecord.amount.trim() != ''">
+          AND amount = #{paymentOrderResponseRecord.amount}
+        </if>
+              <if test="paymentOrderResponseRecord.bankType != null and paymentOrderResponseRecord.bankType.trim() != ''">
+          AND bank_type = #{paymentOrderResponseRecord.bankType}
+        </if>
+              <if test="paymentOrderResponseRecord.feeType != null and paymentOrderResponseRecord.feeType.trim() != ''">
+          AND fee_type = #{paymentOrderResponseRecord.feeType}
+        </if>
+              <if test="paymentOrderResponseRecord.payChannelAccount != null and paymentOrderResponseRecord.payChannelAccount.trim() != ''">
+          AND pay_channel_account = #{paymentOrderResponseRecord.payChannelAccount}
+        </if>
+              <if test="paymentOrderResponseRecord.openId != null and paymentOrderResponseRecord.openId.trim() != ''">
+          AND open_id = #{paymentOrderResponseRecord.openId}
+        </if>
+              <if test="paymentOrderResponseRecord.attach != null and paymentOrderResponseRecord.attach.trim() != ''">
+          AND attach = #{paymentOrderResponseRecord.attach}
+        </if>
+              <if test="paymentOrderResponseRecord.paySuccessTime != null and paymentOrderResponseRecord.paySuccessTime.trim() != ''">
+          AND pay_success_time = #{paymentOrderResponseRecord.paySuccessTime}
+        </if>
+              <if test="paymentOrderResponseRecord.createTime != null and paymentOrderResponseRecord.createTime.trim() != ''">
+          AND create_time = #{paymentOrderResponseRecord.createTime}
+        </if>
+              <if test="paymentOrderResponseRecord.updateTime != null and paymentOrderResponseRecord.updateTime.trim() != ''">
+          AND update_time = #{paymentOrderResponseRecord.updateTime}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

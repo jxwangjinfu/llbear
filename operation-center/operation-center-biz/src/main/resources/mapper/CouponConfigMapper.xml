@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.CouponConfigMapper">
+
+	<resultMap id="couponConfigMap" type="com.junfeng.platform.oc.entity.CouponConfig">
+		<id property="id" column="id"/>
+		<result property="state" column="state"/>
+		<result property="couponUseRule" column="coupon_use_rule"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--couponConfig简单分页查询-->
+	<select id="getCouponConfigPage" resultMap="couponConfigMap">
+		SELECT
+		id,
+		state,
+		coupon_use_rule,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_coupon_config
+		<where>
+			<if test="couponConfig.id != null">
+				AND id = #{couponConfig.id}
+			</if>
+			<if test="couponConfig.state != null">
+				AND state = #{couponConfig.state}
+			</if>
+			<if test="couponConfig.couponUseRule != null and couponConfig.couponUseRule.trim() != ''">
+				AND coupon_use_rule = #{couponConfig.couponUseRule}
+			</if>
+			<if test="couponConfig.delFlag != null and couponConfig.delFlag.trim() != ''">
+				AND del_flag = #{couponConfig.delFlag}
+			</if>
+			<if test="couponConfig.createTime != null and couponConfig.createTime.trim() != ''">
+				AND create_time = #{couponConfig.createTime}
+			</if>
+			<if test="couponConfig.createBy != null and couponConfig.createBy.trim() != ''">
+				AND create_by = #{couponConfig.createBy}
+			</if>
+			<if test="couponConfig.updateTime != null and couponConfig.updateTime.trim() != ''">
+				AND update_time = #{couponConfig.updateTime}
+			</if>
+			<if test="couponConfig.updateBy != null and couponConfig.updateBy.trim() != ''">
+				AND update_by = #{couponConfig.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

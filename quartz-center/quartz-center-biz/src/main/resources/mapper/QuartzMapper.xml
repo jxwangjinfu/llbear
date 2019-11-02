@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.junfeng.platform.qc.mapper.QuartzMapper">
+
+	<!--关联查询任务分页数据-->
+	<select id="getQuartzPage" resultType="com.junfeng.platform.qc.entity.QuartzEntity">
+		SELECT
+			job.JOB_NAME AS jobName,
+			job.JOB_GROUP AS jobGroup,
+			job.DESCRIPTION AS description,
+			job.JOB_CLASS_NAME AS jobClassName,
+			cron.CRON_EXPRESSION AS cronExpression,
+			tri.TRIGGER_NAME AS triggerName,
+			tri.TRIGGER_STATE AS triggerState,
+			job.JOB_NAME AS oldJobName,
+			job.JOB_GROUP AS oldJobGroup
+		FROM
+			QRTZ_JOB_DETAILS AS job
+		LEFT JOIN QRTZ_TRIGGERS AS tri ON job.JOB_NAME = tri.JOB_NAME
+		LEFT JOIN QRTZ_CRON_TRIGGERS AS cron ON cron.TRIGGER_NAME = tri.TRIGGER_NAME
+		WHERE
+			tri.TRIGGER_TYPE = 'CRON'
+	</select>
+	
+	<!-- 查询单个任务 -->
+	<select id="getQuartz" resultType="com.junfeng.platform.qc.entity.QuartzEntity">
+		SELECT
+			job.JOB_NAME AS jobName,
+			job.JOB_GROUP AS jobGroup,
+			job.DESCRIPTION AS description,
+			job.JOB_CLASS_NAME AS jobClassName,
+			cron.CRON_EXPRESSION AS cronExpression,
+			tri.TRIGGER_NAME AS triggerName,
+			tri.TRIGGER_STATE AS triggerState,
+			job.JOB_NAME AS oldJobName,
+			job.JOB_GROUP AS oldJobGroup
+		FROM
+			QRTZ_JOB_DETAILS AS job
+		LEFT JOIN QRTZ_TRIGGERS AS tri ON job.JOB_NAME = tri.JOB_NAME
+		LEFT JOIN QRTZ_CRON_TRIGGERS AS cron ON cron.TRIGGER_NAME = tri.TRIGGER_NAME
+		WHERE
+			tri.TRIGGER_TYPE = 'CRON'
+		AND job.JOB_NAME= #{jobName} AND job.JOB_GROUP=#{jobGroup} limit 1
+	</select>
+	
+	<!-- 获取任务参数  -->
+	<select id="getJobData" resultType="com.junfeng.platform.qc.entity.TypeBlob">
+        SELECT JOB_DATA as tblob  FROM QRTZ_JOB_DETAILS 
+        WHERE JOB_NAME = #{jobName} AND JOB_GROUP = #{jobGroup} limit 1
+    </select>
+	
+	
+	
+</mapper>

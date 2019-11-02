@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.csc.mapper.PhoneStateMapper">
+
+  <resultMap id="phoneStateMap" type="com.junfeng.platform.csc.entity.PhoneState">
+                  <id property="phoneCode" column="phone_code"/>
+                        <result property="state" column="state"/>
+            </resultMap>
+
+  <!--phoneState简单分页查询-->
+  <select id="getPhoneStatePage" resultMap="phoneStateMap">
+    SELECT
+                  phone_code,
+                        state
+              FROM csc_phone_state
+    <where>
+              <if test="phoneState.phoneCode != null">
+          AND phone_code = #{phoneState.phoneCode}
+        </if>
+              <if test="phoneState.state != null">
+          AND state = #{phoneState.state}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

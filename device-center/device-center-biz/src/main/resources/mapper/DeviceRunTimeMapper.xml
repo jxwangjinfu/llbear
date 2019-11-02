@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.dc.mapper.DeviceRunTimeMapper">
+
+	<resultMap id="deviceRunTimeMap" type="com.junfeng.platform.dc.entity.DeviceRunTime">
+		<id property="id" column="id"/>
+		<result property="deviceId" column="device_id"/>
+		<result property="dayNumber" column="day_number"/>
+		<result property="monthNumber" column="month_number"/>
+		<result property="yearNumber" column="year_number"/>
+		<result property="onlineTime" column="online_time"/>
+		<result property="createTime" column="create_time"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateBy" column="update_by"/>
+		<result property="delFlag" column="del_flag"/>
+	</resultMap>
+
+	<!--deviceRunTime简单分页查询-->
+	<select id="getDeviceRunTimePage" resultMap="deviceRunTimeMap">
+		SELECT
+		id,
+		device_id,
+		day_number,
+		month_number,
+		year_number,
+		online_time,
+		create_time,
+		update_time,
+		create_by,
+		update_by,
+		del_flag
+		FROM dc_device_run_time
+		<where>
+			<if test="deviceRunTime.id != null">
+				AND id = #{deviceRunTime.id}
+			</if>
+			<if test="deviceRunTime.deviceId != null">
+				AND device_id = #{deviceRunTime.deviceId}
+			</if>
+			<if test="deviceRunTime.dayNumber != null">
+				AND day_number = #{deviceRunTime.dayNumber}
+			</if>
+			<if test="deviceRunTime.monthNumber != null">
+				AND month_number = #{deviceRunTime.monthNumber}
+			</if>
+			<if test="deviceRunTime.yearNumber != null">
+				AND year_number = #{deviceRunTime.yearNumber}
+			</if>
+			<if test="deviceRunTime.onlineTime != null">
+				AND online_time = #{deviceRunTime.onlineTime}
+			</if>
+			<if test="deviceRunTime.createTime != null">
+				AND create_time = #{deviceRunTime.createTime}
+			</if>
+			<if test="deviceRunTime.updateTime != null">
+				AND update_time = #{deviceRunTime.updateTime}
+			</if>
+			<if test="deviceRunTime.createBy != null and deviceRunTime.createBy.trim() != ''">
+				AND create_by = #{deviceRunTime.createBy}
+			</if>
+			<if test="deviceRunTime.updateBy != null and deviceRunTime.updateBy.trim() != ''">
+				AND update_by = #{deviceRunTime.updateBy}
+			</if>
+			<!-- 不显示逻辑删除的记录
+			<if test="deviceRunTime.delFlag != null and deviceRunTime.delFlag.trim() != ''">
+				AND del_flag = #{deviceRunTime.delFlag}
+			</if>
+			-->
+			AND del_flag = '0'
+		</where>
+	</select>
+
+
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.PointsConfigMapper">
+
+	<resultMap id="pointsConfigMap" type="com.junfeng.platform.oc.entity.PointsConfig">
+		<id property="id" column="id"/>
+		<result property="clientId" column="client_id"/>
+		<result property="operationType" column="operation_type"/>
+		<result property="pointsType" column="points_type"/>
+		<result property="pointsName" column="points_name"/>
+		<result property="state" column="state"/>
+		<result property="points" column="points"/>
+		<result property="pointsRule" column="points_rule"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--pointsConfig简单分页查询-->
+	<select id="getPointsConfigPage" resultMap="pointsConfigMap">
+		SELECT
+		id,
+		client_id,
+		operation_type,
+		points_type,
+		points_name,
+		state,
+		points,
+		points_rule,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_points_config
+		<where>
+			<if test="pointsConfig.id != null">
+				AND id = #{pointsConfig.id}
+			</if>
+			<if test="pointsConfig.clientId != null and pointsConfig.clientId.trim() != ''">
+				AND client_id = #{pointsConfig.clientId}
+			</if>
+			<if test="pointsConfig.operationType != null">
+				AND operation_type = #{pointsConfig.operationType}
+			</if>
+			<if test="pointsConfig.pointsType != null">
+				AND points_type = #{pointsConfig.pointsType}
+			</if>
+			<if test="pointsConfig.pointsName != null and pointsConfig.pointsName.trim() != ''">
+				AND points_name = #{pointsConfig.pointsName}
+			</if>
+			<if test="pointsConfig.state != null">
+				AND state = #{pointsConfig.state}
+			</if>
+			<if test="pointsConfig.points != null">
+				AND points = #{pointsConfig.points}
+			</if>
+			<if test="pointsConfig.pointsRule != null and pointsConfig.pointsRule.trim() != ''">
+				AND points_rule = #{pointsConfig.pointsRule}
+			</if>
+			<if test="pointsConfig.delFlag != null and pointsConfig.delFlag.trim() != ''">
+				AND del_flag = #{pointsConfig.delFlag}
+			</if>
+			<if test="pointsConfig.createTime != null and pointsConfig.createTime.trim() != ''">
+				AND create_time = #{pointsConfig.createTime}
+			</if>
+			<if test="pointsConfig.createBy != null and pointsConfig.createBy.trim() != ''">
+				AND create_by = #{pointsConfig.createBy}
+			</if>
+			<if test="pointsConfig.updateTime != null and pointsConfig.updateTime.trim() != ''">
+				AND update_time = #{pointsConfig.updateTime}
+			</if>
+			<if test="pointsConfig.updateBy != null and pointsConfig.updateBy.trim() != ''">
+				AND update_by = #{pointsConfig.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

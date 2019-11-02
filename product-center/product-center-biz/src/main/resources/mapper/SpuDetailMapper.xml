@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.SpuDetailMapper">
+
+  <resultMap id="spuDetailMap" type="com.junfeng.platform.pc.api.entity.SpuDetail">
+                  <id property="spuCode" column="spu_code"/>
+                        <result property="description" column="description"/>
+                        <result property="specifications" column="specifications"/>
+                        <result property="specialSpecifications" column="special_specifications"/>
+                        <result property="packingList" column="packing_list"/>
+                        <result property="afterService" column="after_service"/>
+                        <result property="shippingFee" column="shipping_fee"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--spuDetail简单分页查询-->
+  <select id="getSpuDetailPage" resultMap="spuDetailMap">
+    SELECT
+                  spu_code,
+                        description,
+                        specifications,
+                        special_specifications,
+                        packing_list,
+                        after_service,
+                        shipping_fee,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM pc_spu_detail
+    <where>
+              <if test="spuDetail.spuCode != null and spuDetail.spuCode.trim() != ''">
+          AND spu_code = #{spuDetail.spuCode}
+        </if>
+              <if test="spuDetail.description != null and spuDetail.description.trim() != ''">
+          AND description = #{spuDetail.description}
+        </if>
+              <if test="spuDetail.specifications != null and spuDetail.specifications.trim() != ''">
+          AND specifications = #{spuDetail.specifications}
+        </if>
+              <if test="spuDetail.specialSpecifications != null and spuDetail.specialSpecifications.trim() != ''">
+          AND special_specifications = #{spuDetail.specialSpecifications}
+        </if>
+              <if test="spuDetail.packingList != null and spuDetail.packingList.trim() != ''">
+          AND packing_list = #{spuDetail.packingList}
+        </if>
+              <if test="spuDetail.afterService != null and spuDetail.afterService.trim() != ''">
+          AND after_service = #{spuDetail.afterService}
+        </if>
+              <if test="spuDetail.shippingFee != null and spuDetail.shippingFee.trim() != ''">
+          AND shipping_fee = #{spuDetail.shippingFee}
+        </if>
+              <if test="spuDetail.delFlag != null and spuDetail.delFlag.trim() != ''">
+          AND del_flag = #{spuDetail.delFlag}
+        </if>
+              <if test="spuDetail.createTime != null and spuDetail.createTime.trim() != ''">
+          AND create_time = #{spuDetail.createTime}
+        </if>
+              <if test="spuDetail.createBy != null and spuDetail.createBy.trim() != ''">
+          AND create_by = #{spuDetail.createBy}
+        </if>
+              <if test="spuDetail.updateTime != null and spuDetail.updateTime.trim() != ''">
+          AND update_time = #{spuDetail.updateTime}
+        </if>
+              <if test="spuDetail.updateBy != null and spuDetail.updateBy.trim() != ''">
+          AND update_by = #{spuDetail.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

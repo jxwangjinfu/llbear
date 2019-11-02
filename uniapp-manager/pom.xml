@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<artifactId>pig</artifactId>
+		<groupId>com.pig4cloud</groupId>
+		<version>2.4.0</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>uniapp-manager</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--swagger 配置-->
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>junfeng-common-swagger2</artifactId>
+			<version>0.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<!--安全模块-->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>pig-common-security</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!--日志处理-->
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>pig-common-log</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<!--产品中心-->
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>product-center-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<!--会员中心-->
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>member-center-api</artifactId>
+			<version>0.0.2</version>
+		</dependency>
+		<!--配置中心客户端-->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+		</dependency>
+		<!--undertow容器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.28</version>
+		</dependency>
+		<dependency>
+			<groupId>com.pig4cloud</groupId>
+			<artifactId>operation-center-api</artifactId>
+			<version>2.4.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>product-center-api</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.junfeng</groupId>
+			<artifactId>trade-center-api</artifactId>
+			<version>0.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.zaxxer</groupId>
+			<artifactId>HikariCP</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<!-- do not modify this docker build config, unless you know it! -->
+	<!-- === docker build copy BEGIN === -->
+	<properties>
+		<JunFengDockerImageName>uniapp-manager</JunFengDockerImageName>
+		<JunFengDockerImageVersion>0.0.17</JunFengDockerImageVersion>
+	</properties>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<!-- docker的maven插件，官网 https://github.com/spotify/docker-maven-plugin -->
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<configuration>
+					<imageName>
+						192.168.199.12:50000/${JunFengDockerImageName}:${JunFengDockerImageVersion}
+					</imageName>
+					<baseImage>jre1.8:0.0.1</baseImage>
+					<workdir>/${project.build.finalName}</workdir>
+					<entryPoint>
+						["java", "-Djava.security.egd=file:/dev/./urandom", "-jar","/${project.build.finalName}/${project.build.finalName}.jar"]
+					</entryPoint>
+					<resources>
+						<resource>
+							<targetPath>/${project.build.finalName}</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.jar</include>
+						</resource>
+					</resources>
+					<dockerHost>http://192.168.199.12:2375</dockerHost>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<!-- === docker build copy END === -->
+</project>

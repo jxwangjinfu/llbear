@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.CouponMemberMapper">
+
+	<resultMap id="couponMemberMap" type="com.junfeng.platform.oc.entity.CouponMember">
+		<id property="id" column="id"/>
+		<result property="ocCouponId" column="oc_coupon_id"/>
+		<result property="mcMemberId" column="mc_member_id"/>
+		<result property="orderNo" column="order_no"/>
+		<result property="couponCode" column="coupon_code"/>
+		<result property="money" column="money"/>
+		<result property="state" column="state"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<resultMap id="couponMemberDtoMap" type="com.junfeng.platform.oc.entity.CouponMemberDTO">
+		<id property="id" column="id"/>
+		<result property="ocCouponId" column="oc_coupon_id"/>
+		<result property="mcMemberId" column="mc_member_id"/>
+		<result property="couponName" column="coupon_name"/>
+		<result property="clientId" column="client_id"/>
+		<result property="discountContext" column="discount_context"/>
+		<result property="orderUsePre" column="order_use_pre"/>
+		<result property="typeCode" column="type_code"/>
+	</resultMap>
+
+	<!--couponMember简单分页查询-->
+	<select id="getCouponMemberPage" resultMap="couponMemberMap">
+		SELECT
+		id,
+		oc_coupon_id,
+		mc_member_id,
+		coupon_code,
+		money,
+		order_no,
+		state,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_coupon_member
+		<where>
+			<if test="couponMember.id != null">
+				AND id = #{couponMember.id}
+			</if>
+			<if test="couponMember.ocCouponId != null">
+				AND oc_coupon_id = #{couponMember.ocCouponId}
+			</if>
+			<if test="couponMember.mcMemberId != null">
+				AND mc_member_id = #{couponMember.mcMemberId}
+			</if>
+			<if test="couponMember.couponCode != null and couponMember.couponCode.trim() != ''">
+				AND coupon_code = #{couponMember.couponCode}
+			</if>
+			<if test="couponMember.orderNo != null and couponMember.orderNo.trim() != ''">
+				AND order_no = #{couponMember.orderNo}
+			</if>
+			<if test="couponMember.state != null">
+				AND state = #{couponMember.state}
+			</if>
+			<if test="couponMember.money != null">
+				AND state = #{couponMember.money}
+			</if>
+			<if test="couponMember.delFlag != null and couponMember.delFlag.trim() != ''">
+				AND del_flag = #{couponMember.delFlag}
+			</if>
+			<if test="couponMember.createTime != null and couponMember.createTime.trim() != ''">
+				AND create_time = #{couponMember.createTime}
+			</if>
+			<if test="couponMember.createBy != null and couponMember.createBy.trim() != ''">
+				AND create_by = #{couponMember.createBy}
+			</if>
+			<if test="couponMember.updateTime != null and couponMember.updateTime.trim() != ''">
+				AND update_time = #{couponMember.updateTime}
+			</if>
+			<if test="couponMember.updateBy != null and couponMember.updateBy.trim() != ''">
+				AND update_by = #{couponMember.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+	<select id="getCouponList" resultMap="couponMemberDtoMap">
+
+		SELECT
+		a.id,
+		a.mc_member_id,
+		a.oc_coupon_id,
+		a.money,
+		b.coupon_name,
+		b.client_id,
+		b.discount_context,
+		b.order_use_pre,
+		b.type_code
+		FROM
+		oc_coupon_member a
+		INNER JOIN oc_coupon b ON a.oc_coupon_id = b.id
+
+		WHERE
+		a.state = 2
+		AND b.state = 1
+		<if test="orderVO.clientId != null and orderVO.clientId.trim() != ''">
+			AND b.client_id = #{orderVO.clientId}
+		</if>
+		<if test="orderVO.memberId != null">
+			AND a.mc_member_id = #{orderVO.memberId}
+		</if>
+		<if test="orderVO.totalPrice != null">
+			AND (
+			b.order_use_pre = 0
+			<![CDATA[
+				OR b.order_use_pre <= #{orderVO.totalPrice}
+			]]>
+			)
+		</if>
+		ORDER BY b.order_use_pre
+	</select>
+
+
+</mapper>

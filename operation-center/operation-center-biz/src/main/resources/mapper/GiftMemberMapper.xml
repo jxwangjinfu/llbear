@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.oc.mapper.GiftMemberMapper">
+
+	<resultMap id="giftMemberMap" type="com.junfeng.platform.oc.entity.GiftMember">
+		<id property="id" column="id"/>
+		<result property="ocGiftId" column="oc_gift_id"/>
+		<result property="mcMemberId" column="mc_member_id"/>
+		<result property="orderNo" column="order_no"/>
+		<result property="state" column="state"/>
+		<result property="delFlag" column="del_flag"/>
+		<result property="createTime" column="create_time"/>
+		<result property="createBy" column="create_by"/>
+		<result property="updateTime" column="update_time"/>
+		<result property="updateBy" column="update_by"/>
+	</resultMap>
+
+	<!--giftMember简单分页查询-->
+	<select id="getGiftMemberPage" resultMap="giftMemberMap">
+		SELECT
+		id,
+		oc_gift_id,
+		mc_member_id,
+		order_no,
+		state,
+		del_flag,
+		create_time,
+		create_by,
+		update_time,
+		update_by
+		FROM oc_gift_member
+		<where>
+			<if test="giftMember.id != null">
+				AND id = #{giftMember.id}
+			</if>
+			<if test="giftMember.ocGiftId != null">
+				AND oc_gift_id = #{giftMember.ocGiftId}
+			</if>
+			<if test="giftMember.mcMemberId != null">
+				AND mc_member_id = #{giftMember.mcMemberId}
+			</if>
+			<if test="giftMember.orderNo != null and giftMember.orderNo.trim() != ''">
+				AND order_no = #{giftMember.orderNo}
+			</if>
+			<if test="giftMember.state != null">
+				AND state = #{giftMember.state}
+			</if>
+			<if test="giftMember.delFlag != null and giftMember.delFlag.trim() != ''">
+				AND del_flag = #{giftMember.delFlag}
+			</if>
+			<if test="giftMember.createTime != null and giftMember.createTime.trim() != ''">
+				AND create_time = #{giftMember.createTime}
+			</if>
+			<if test="giftMember.createBy != null and giftMember.createBy.trim() != ''">
+				AND create_by = #{giftMember.createBy}
+			</if>
+			<if test="giftMember.updateTime != null and giftMember.updateTime.trim() != ''">
+				AND update_time = #{giftMember.updateTime}
+			</if>
+			<if test="giftMember.updateBy != null and giftMember.updateBy.trim() != ''">
+				AND update_by = #{giftMember.updateBy}
+			</if>
+		</where>
+		order by update_time desc
+	</select>
+
+
+</mapper>

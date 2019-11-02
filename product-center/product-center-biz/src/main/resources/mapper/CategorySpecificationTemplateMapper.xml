@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.CategorySpecificationTemplateMapper">
+
+  <resultMap id="categorySpecificationTemplateMap" type="com.junfeng.platform.pc.api.entity.CategorySpecificationTemplate">
+                  <id property="categoryId" column="category_id"/>
+                        <result property="spuTemplate" column="spu_template"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--categorySpecificationTemplate简单分页查询-->
+  <select id="getCategorySpecificationTemplatePage" resultMap="categorySpecificationTemplateMap">
+    SELECT
+                  category_id,
+                        spu_template,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM pc_category_specification_template
+    <where>
+              <if test="categorySpecificationTemplate.categoryId != null and categorySpecificationTemplate.categoryId.trim() != ''">
+          AND category_id = #{categorySpecificationTemplate.categoryId}
+        </if>
+              <if test="categorySpecificationTemplate.spuTemplate != null and categorySpecificationTemplate.spuTemplate.trim() != ''">
+          AND spu_template = #{categorySpecificationTemplate.spuTemplate}
+        </if>
+              <if test="categorySpecificationTemplate.delFlag != null and categorySpecificationTemplate.delFlag.trim() != ''">
+          AND del_flag = #{categorySpecificationTemplate.delFlag}
+        </if>
+              <if test="categorySpecificationTemplate.createTime != null and categorySpecificationTemplate.createTime.trim() != ''">
+          AND create_time = #{categorySpecificationTemplate.createTime}
+        </if>
+              <if test="categorySpecificationTemplate.createBy != null and categorySpecificationTemplate.createBy.trim() != ''">
+          AND create_by = #{categorySpecificationTemplate.createBy}
+        </if>
+              <if test="categorySpecificationTemplate.updateTime != null and categorySpecificationTemplate.updateTime.trim() != ''">
+          AND update_time = #{categorySpecificationTemplate.updateTime}
+        </if>
+              <if test="categorySpecificationTemplate.updateBy != null and categorySpecificationTemplate.updateBy.trim() != ''">
+          AND update_by = #{categorySpecificationTemplate.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

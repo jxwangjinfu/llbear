@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.mc.mapper.MemberAddressMapper">
+
+  <resultMap id="memberAddressMap" type="com.junfeng.platform.mc.api.entity.MemberAddress">
+                  <id property="id" column="id"/>
+                        <result property="memberId" column="member_id"/>
+                        <result property="customerName" column="customer_name"/>
+                        <result property="customerPhone" column="customer_phone"/>
+                        <result property="province" column="province"/>
+                        <result property="city" column="city"/>
+                        <result property="area" column="area"/>
+                        <result property="arealabel" column="areaLabel"/>
+                        <result property="address" column="address"/>
+                        <result property="postcode" column="postcode"/>
+                        <result property="isDefault" column="is_default"/>
+                        <result property="sortNum" column="sort_num"/>
+                        <result property="remark" column="remark"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+                        <result property="delFlag" column="del_flag"/>
+            </resultMap>
+
+  <!--memberAddress简单分页查询-->
+  <select id="getMemberAddressPage" resultMap="memberAddressMap">
+    SELECT
+                  id,
+                        member_id,
+                        customer_name,
+                        customer_phone,
+                        province,
+                        city,
+                        area,
+                        areaLabel,
+                        address,
+                        postcode,
+                        is_default,
+                        sort_num,
+                        remark,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by,
+                        del_flag
+              FROM mc_member_address
+    <where>
+              <if test="memberAddress.id != null and memberAddress.id != 0">
+          AND id = #{memberAddress.id}
+        </if>
+              <if test="memberAddress.memberId != null and memberAddress.memberId.trim() != ''">
+          AND member_id = #{memberAddress.memberId}
+        </if>
+              <if test="memberAddress.customerName != null and memberAddress.customerName.trim() != ''">
+          AND customer_name = #{memberAddress.customerName}
+        </if>
+              <if test="memberAddress.customerPhone != null and memberAddress.customerPhone.trim() != ''">
+          AND customer_phone = #{memberAddress.customerPhone}
+        </if>
+              <if test="memberAddress.province != null and memberAddress.province.trim() != ''">
+          AND province = #{memberAddress.province}
+        </if>
+              <if test="memberAddress.city != null and memberAddress.city.trim() != ''">
+          AND city = #{memberAddress.city}
+        </if>
+              <if test="memberAddress.area != null and memberAddress.area.trim() != ''">
+          AND area = #{memberAddress.area}
+        </if>
+              <if test="memberAddress.arealabel != null and memberAddress.arealabel.trim() != ''">
+          AND areaLabel = #{memberAddress.arealabel}
+        </if>
+              <if test="memberAddress.address != null and memberAddress.address.trim() != ''">
+          AND address = #{memberAddress.address}
+        </if>
+              <if test="memberAddress.postcode != null and memberAddress.postcode.trim() != ''">
+          AND postcode = #{memberAddress.postcode}
+        </if>
+              <if test="memberAddress.isDefault != null and memberAddress.isDefault.trim() != ''">
+          AND is_default = #{memberAddress.isDefault}
+        </if>
+              <if test="memberAddress.sortNum != null and memberAddress.sortNum.trim() != ''">
+          AND sort_num = #{memberAddress.sortNum}
+        </if>
+              <if test="memberAddress.remark != null and memberAddress.remark.trim() != ''">
+          AND remark = #{memberAddress.remark}
+        </if>
+              <if test="memberAddress.createTime != null and memberAddress.createTime.trim() != ''">
+          AND create_time = #{memberAddress.createTime}
+        </if>
+              <if test="memberAddress.createBy != null and memberAddress.createBy.trim() != ''">
+          AND create_by = #{memberAddress.createBy}
+        </if>
+              <if test="memberAddress.updateTime != null and memberAddress.updateTime.trim() != ''">
+          AND update_time = #{memberAddress.updateTime}
+        </if>
+              <if test="memberAddress.updateBy != null and memberAddress.updateBy.trim() != ''">
+          AND update_by = #{memberAddress.updateBy}
+        </if>
+              <if test="memberAddress.delFlag != null and memberAddress.delFlag.trim() != ''">
+          AND del_flag = #{memberAddress.delFlag}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

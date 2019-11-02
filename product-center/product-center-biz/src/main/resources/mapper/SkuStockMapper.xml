@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.junfeng.platform.pc.mapper.SkuStockMapper">
+
+  <resultMap id="skuStockMap" type="com.junfeng.platform.pc.api.entity.SkuStock">
+                  <id property="skuCode" column="sku_code"/>
+                        <result property="stock" column="stock"/>
+                        <result property="delFlag" column="del_flag"/>
+                        <result property="createTime" column="create_time"/>
+                        <result property="createBy" column="create_by"/>
+                        <result property="updateTime" column="update_time"/>
+                        <result property="updateBy" column="update_by"/>
+            </resultMap>
+
+  <!--skuStock简单分页查询-->
+  <select id="getSkuStockPage" resultMap="skuStockMap">
+    SELECT
+                  sku_code,
+                        stock,
+                        del_flag,
+                        create_time,
+                        create_by,
+                        update_time,
+                        update_by
+              FROM pc_sku_stock
+    <where>
+              <if test="skuStock.skuCode != null and skuStock.skuCode.trim() != ''">
+          AND sku_code = #{skuStock.skuCode}
+        </if>
+              <if test="skuStock.stock != null and skuStock.stock.trim() != ''">
+          AND stock = #{skuStock.stock}
+        </if>
+              <if test="skuStock.delFlag != null and skuStock.delFlag.trim() != ''">
+          AND del_flag = #{skuStock.delFlag}
+        </if>
+              <if test="skuStock.createTime != null and skuStock.createTime.trim() != ''">
+          AND create_time = #{skuStock.createTime}
+        </if>
+              <if test="skuStock.createBy != null and skuStock.createBy.trim() != ''">
+          AND create_by = #{skuStock.createBy}
+        </if>
+              <if test="skuStock.updateTime != null and skuStock.updateTime.trim() != ''">
+          AND update_time = #{skuStock.updateTime}
+        </if>
+              <if test="skuStock.updateBy != null and skuStock.updateBy.trim() != ''">
+          AND update_by = #{skuStock.updateBy}
+        </if>
+          </where>
+  </select>
+
+
+
+</mapper>

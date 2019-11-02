@@ -1,0 +1,71 @@
+server:
+  port: 5000
+
+spring:
+  application:
+    name: payment-center
+  # 配置中心
+  cloud:
+    config:
+      fail-fast: true
+      name: ${spring.application.name}
+      profile: ${spring.profiles.active}
+      discovery:
+        enabled: true
+        service-id: pig-config
+  profiles:
+    active: dev
+  main:
+    allow-bean-definition-overriding: true
+
+# 注册中心配置
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: http://pig:pig@pig-eureka:8761/eureka/
+
+
+### 平台配置 ###
+payment:
+  #支付中心签名密钥
+  payment_center_key: 12345abc
+  #江西银行接口地址
+  jx_bank_host: http://betaapi.speedpos.snsshop.net/
+  #中信银行接口地址
+  citic_bank_host: https://pay.swiftpass.cn/pay/gateway
+  #招商银行接口地址
+  cm_bank_host: https://pay.swiftpass.cn/pay/gateway
+  #农业银行接口地上
+  abc_bank_host: https://uptp.abchina.com/upaybr/UPTP.ebf
+  abc_bank_appid: 1003
+  #银联接口地址
+  union_pay_host: https://api-mop.chinaums.com
+  union_pay_appid: 469384af64660d2001659088a98a07f4
+  union_pay_appkey: 75a389d806094e439016baff644dac14
+  #银联小程序
+  union_pay_mini_host: https://qr.chinaums.com/netpay-route-server/api/
+  union_pay_mini_appid: f0ec96ad2c3848b5b810e7aadf369e2f
+  union_pay_mini_appkey: 775481e2556e4564985f5439a5e6a277
+  nion_pay_mini_instmid: MINIDEFAULT
+  union_pay_mini_key: p2tTYAYKixPQzkkcprrwFEpGGDBhANBHKFjxjt5Tk6m4xQRh
+  #邮政银行
+  #post_bank_host:https://test.allinpaygd.com/apiweb/unitorder
+  post_bank_host: https://vsp.allinpay.com/apiweb/unitorder
+  #中国银行
+  #china_bank_host:https://cloud.bankofchina.com/jx/webapp/jxboc-qrpay/comlink/pay
+  china_bank_host: https://cq.epstudio.com.cn:50443/jxboc-qrpay/comlink/pay
+  china_bank_key: 1AC$@!BGT98aw#C
+
+  construction_bank_branchid: 360000000
+  construction_bank_url: https://ibsbjstar.ccb.com.cn/CCBIS/B2CMainPlat_00_ENPAY
+  construction_bank_socket_ip: 101.132.44.172
+  construction_bank_socket_port: 12345
+  construction_bank_refund_big_mchid: 105000253317176
+  construction_bank_refund_big_mchopera: 105000253317176-002
+  construction_bank_refund_mchopera_trade_password: 147258
+
+logging:
+  level:
+    com.baomidou.mybatisplus: debug
